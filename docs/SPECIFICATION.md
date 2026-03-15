@@ -51,7 +51,7 @@ Each certification course involves a structured curriculum, hands-on practical t
 
 Many beauty academies, particularly small-to-medium institutions, continue to manage their operations using manual or semi-digital methods such as paper registers, spreadsheets, WhatsApp messages, and physical filing systems. This approach introduces numerous operational inefficiencies:
 
-- **Student Enrollment** — manually recording student details and course selections is time-consuming and error-prone
+- **Student Enrollment** — manually recording student details and course selections is time-consuming and error prone
 - **Class Scheduling** — coordinating trainer availability and room scheduling manually leads to conflicts and miscommunication
 - **Progress Tracking** — monitoring each student's attendance and competency assessments across multiple courses is difficult to maintain without a centralised system
 - **Certification Records** — generating, issuing, and storing certificates manually is slow, inconsistent, and difficult to verify
@@ -74,7 +74,7 @@ A purpose-built digital academy management platform addresses these challenges b
 
 The Bello Beauty Academy currently manages its training operations through a combination of manual processes, spreadsheets, and informal communication channels. This approach is insufficient for a growing academy and results in the following problems:
 
-1. **Inefficient Student Enrollment** — There is no structured digital enrollment process. Students enroll via phone, WhatsApp, or in-person visits, leading to duplicate records, missed applications, and administrative bottlenecks.
+1. **Inefficient Student Enrollment** — There is no structured digital enrollment process. Students enroll via phone, WhatsApp, or in person visits, leading to duplicate records, missed applications, and administrative bottlenecks.
 
 2. **Uncoordinated Class Scheduling** — Class timetables are managed in spreadsheets and shared informally. Scheduling conflicts between trainers and sessions occur regularly, and students frequently receive incorrect or late schedule information.
 
