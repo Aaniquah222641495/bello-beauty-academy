@@ -1,4 +1,4 @@
-# SPECIFICATION.md — Bello Beauty Academy
+# Software Requirements Specification : Bello Beauty Academy Platform
 
 **Document Version:** 1.0  
 **Date:** March 2026  
@@ -353,4 +353,4 @@ A React Native mobile application for iOS and Android to allow students to acces
 
 ### 9.3 Live Virtual Classes
 
-Integration with a video conferencing API (Zoom or Google Meet) to support remote training sessions alongside in-person classes.
+Integration with a video conferencing API (Zoom or Google Meet) to support remote training sessions alongside in person classes.
