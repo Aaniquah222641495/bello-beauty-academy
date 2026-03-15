@@ -8,9 +8,9 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
-**Bello Beauty Academy** is a comprehensive web-based training management system designed for a professional beauty academy. The platform manages the full lifecycle of beauty education — from course browsing and student enrollment, to class scheduling, progress tracking, and digital certificate generation.
+**Bello Beauty Academy** is a comprehensive web-based training management system designed for a professional beauty academy. The platform manages the full lifecycle of beauty education ,from course browsing and student enrollment, to class scheduling, progress tracking, and digital certificate generation.
 
 The academy does **not** offer beauty services. It is a **professional beauty training institution** offering certification courses in:
 
@@ -21,6 +21,11 @@ The academy does **not** offer beauty services. It is a **professional beauty tr
 
 This platform digitises and streamlines all academy operations, replacing manual administrative processes with an efficient, role-based digital management system.
 
+---
+##  What This System Will Do Once Completed
+ 
+Once fully developed, the Bello Beauty Academy Platform will provide a complete digital management solution for the academy. Students will be able to browse and enroll in certification courses online, upload proof of payment, access course materials, track their training progress, and download their digital certificates upon completion. Trainers will be able to manage their assigned sessions, record student attendance, and submit competency assessments through a dedicated portal. Administrators will have full control over the course catalogue, student enrollments, trainer assignments, class schedules, and payment confirmations — all from a single centralised dashboard. The system will also automatically generate and issue branded PDF certificates to students who successfully complete their courses, and dispatch email notifications at every key stage of the enrollment and payment lifecycle.
+ 
 ---
 
 ## 📂 Repository Structure
