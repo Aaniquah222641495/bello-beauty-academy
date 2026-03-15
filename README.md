@@ -4,7 +4,6 @@
 
 ![Platform](https://img.shields.io/badge/Platform-Web%20Application-blueviolet)
 ![Status](https://img.shields.io/badge/Status-In%20Development-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
 ![Architecture](https://img.shields.io/badge/Architecture-C4%20Model-blue)
 
 ---
