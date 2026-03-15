@@ -73,7 +73,7 @@ bello-beauty-academy/
 
 ---
 
-## 🏗️ Architecture Overview
+##  Architecture Overview
 
 The Bello Beauty Academy follows a **layered client-server architecture** with clearly separated concerns:
 
