@@ -44,12 +44,12 @@ bello-beauty-academy/
 ---
 
 ## 📄 Documentation
-
+ 
 | Document | Description |
 |----------|-------------|
-| [SPECIFICATION.md](./SPECIFICATION.md) | Full system specification including functional and non-functional requirements |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | System architecture overview and C4 diagrams |
-
+| [SPECIFICATION.md](./docs/SPECIFICATION.md) | Full system specification including functional and non-functional requirements |
+| [ARCHITECTURE.md](./docs/ARCHITECTURE.md) | System architecture overview and C4 diagrams |
+ 
 ---
 
 ## ✨ Key Features
