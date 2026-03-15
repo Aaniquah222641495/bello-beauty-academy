@@ -1,4 +1,4 @@
-# Software Requirements Specification : Bello Beauty Academy Platform
+# Software Requirements Specification — Bello Beauty Academy Platform
 
 **Document Version:** 1.0  
 **Date:** March 2026  
@@ -32,7 +32,7 @@
 
 ### 2.1 The Beauty Education and Professional Training Industry
 
-The professional beauty industry is one of the fastest growing vocational sectors globally. It encompasses a wide range of disciplines including cosmetology, esthetics, nail technology, lash artistry, brow artistry, and makeup artistry. As consumer demand for professional beauty services grows, so does the need for formally trained, certified beauty practitioners.
+The professional beauty industry is one of the fastest-growing vocational sectors globally. It encompasses a wide range of disciplines including cosmetology, esthetics, nail technology, lash artistry, brow artistry, and makeup artistry. As consumer demand for professional beauty services grows, so does the need for formally trained, certified beauty practitioners.
 
 **Beauty academies** occupy a critical role in this ecosystem. Unlike beauty salons or spas that deliver services to end customers, beauty academies are **educational institutions** focused exclusively on training aspiring beauty professionals. Students enroll in structured programs, learn techniques under the supervision of experienced trainers, and complete assessments to earn recognised industry certifications.
 
@@ -59,7 +59,7 @@ Many beauty academies, particularly small-to-medium institutions, continue to ma
 
 ### 2.4 The Importance of Digital Training Management Platforms
 
-A purpose built digital academy management platform addresses these challenges by centralising all academy operations into a single, accessible system. It provides:
+A purpose-built digital academy management platform addresses these challenges by centralising all academy operations into a single, accessible system. It provides:
 
 - A single source of truth for all course, student, and trainer data
 - Automated enrollment and scheduling workflows
@@ -92,7 +92,7 @@ The Bello Beauty Academy currently manages its training operations through a com
 
 ## 4. System Scope
 
-This section defines the boundaries of the system for the initial release. 
+This section defines the boundaries of the system for the initial release. The scope has been designed to be comprehensive yet realistic.
 
 ### 4.1 In Scope
 
@@ -172,7 +172,7 @@ A **Trainer** is a qualified beauty professional employed by the academy to deli
 An **Administrator** is a member of academy staff responsible for the overall operational management of the platform and the academy.
 
 **Interactions with the system:**
-- Manages the full course catalogue: creates, edits, and archives courses
+- Manages the full course catalogue — creates, edits, and archives courses
 - Adds, updates, and deactivates trainer profiles
 - Reviews and processes student enrollment requests
 - Assigns trainers to courses and sessions
@@ -353,4 +353,4 @@ A React Native mobile application for iOS and Android to allow students to acces
 
 ### 9.3 Live Virtual Classes
 
-Integration with a video conferencing API (Zoom or Google Meet) to support remote training sessions alongside in person classes.
+Integration with a video conferencing API (Zoom or Google Meet) to support remote training sessions alongside in-person classes.
