@@ -30,7 +30,7 @@ The Bello Beauty Academy currently manages its training operations through a com
 
 ## Individual Scope
 
-The scope of this system has been defined to be comprehensive yet realistic. The core features : student enrollment, course management, trainer management, class scheduling, progress tracking, payment confirmation, and certificate generation form a complete and cohesive system that addresses all the identified problems. Complex features such as online card payment processing and live virtual classes have been deliberately deferred to future releases and documented in the Future Scope section of the specification. The system is built using widely adopted technologies (React.js, Node.js, PostgreSQL) that are well documented and supported, making the implementation feasible within the project timeline.
+The core features : student enrollment, course management, trainer management, class scheduling, progress tracking, payment confirmation, and certificate generation form a complete and cohesive system that addresses all the identified problems. Complex features such as online card payment processing and live virtual classes have been deliberately deferred to future releases and documented in the Future Scope section of the specification. The system is built using widely adopted technologies (React.js, Node.js, PostgreSQL) that are well documented and supported, making the implementation feasible within the project timeline.
 
 ---
 
