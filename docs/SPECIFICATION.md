@@ -1,8 +1,13 @@
 # Software Requirements Specification — Bello Beauty Academy Platform
 
-**Document Version:** 1.0  
-**Date:** March 2026  
-**Status:** Draft  
+**Document Version:** 2.0
+**Date:** March 2026
+**Status:** Updated — Assignment 4 Revision
+
+> **Assignment 4 Update:** The following companion documents have been added to the repository as required:
+> - [STAKEHOLDER_ANALYSIS.md](./STAKEHOLDER_ANALYSIS.md) — Stakeholder analysis table with roles, concerns, pain points, and success metrics
+> - [SYSTEM_REQUIREMENTS.md](./SYSTEM_REQUIREMENTS.md) — Full System Requirements Document with acceptance criteria and categorised NFRs
+> - [REFLECTION.md](./REFLECTION.md) — Reflection on balancing stakeholder needs
 
 ---
 
@@ -86,7 +91,9 @@ The Bello Beauty Academy currently manages its training operations through a com
 
 6. **Lack of Operational Visibility** — Academy management has no dashboard or reporting system to monitor enrollment numbers, course capacity, trainer workload, or revenue trends.
 
-**The Bello Beauty Academy** is proposed as a web-based management system that will resolve each of these challenges by digitising and automating the core operations of the academy.
+7. **No Payment Tracking System** — Proof of payment documents arrive informally via WhatsApp with no organised queue, audit trail, or systematic confirmation workflow.
+
+**The Bello Beauty Academy Platform** is proposed as a web-based management system that will resolve each of these challenges by digitising and automating the core operations of the academy.
 
 ---
 
