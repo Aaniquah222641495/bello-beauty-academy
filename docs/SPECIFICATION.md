@@ -1,8 +1,13 @@
-# SPECIFICATION.md — Bello Beauty Academy
+# Software Requirements Specification — Bello Beauty Academy Platform
 
-**Document Version:** 1.0  
-**Date:** March 2026  
-**Status:** Draft  
+**Document Version:** 2.0
+**Date:** March 2026
+**Status:** Updated — Assignment 4 Revision
+
+> **Assignment 4 Update:** The following companion documents have been added to the repository as required:
+> - [STAKEHOLDER_ANALYSIS.md](./STAKEHOLDER_ANALYSIS.md) — Stakeholder analysis table with roles, concerns, pain points, and success metrics
+> - [SYSTEM_REQUIREMENTS.md](./SYSTEM_REQUIREMENTS.md) — Full System Requirements Document with acceptance criteria and categorised NFRs
+> - [REFLECTION.md](./REFLECTION.md) — Reflection on balancing stakeholder needs
 
 ---
 
@@ -32,7 +37,7 @@
 
 ### 2.1 The Beauty Education and Professional Training Industry
 
-The professional beauty industry is one of the fastest growing vocational sectors globally. It encompasses a wide range of disciplines including cosmetology, esthetics, nail technology, lash artistry, brow artistry, and makeup artistry. As consumer demand for professional beauty services grows, so does the need for formally trained, certified beauty practitioners.
+The professional beauty industry is one of the fastest-growing vocational sectors globally. It encompasses a wide range of disciplines including cosmetology, esthetics, nail technology, lash artistry, brow artistry, and makeup artistry. As consumer demand for professional beauty services grows, so does the need for formally trained, certified beauty practitioners.
 
 **Beauty academies** occupy a critical role in this ecosystem. Unlike beauty salons or spas that deliver services to end customers, beauty academies are **educational institutions** focused exclusively on training aspiring beauty professionals. Students enroll in structured programs, learn techniques under the supervision of experienced trainers, and complete assessments to earn recognised industry certifications.
 
@@ -51,7 +56,7 @@ Each certification course involves a structured curriculum, hands-on practical t
 
 Many beauty academies, particularly small-to-medium institutions, continue to manage their operations using manual or semi-digital methods such as paper registers, spreadsheets, WhatsApp messages, and physical filing systems. This approach introduces numerous operational inefficiencies:
 
-- **Student Enrollment** — manually recording student details and course selections is time-consuming and error-prone
+- **Student Enrollment** — manually recording student details and course selections is time-consuming and error prone
 - **Class Scheduling** — coordinating trainer availability and room scheduling manually leads to conflicts and miscommunication
 - **Progress Tracking** — monitoring each student's attendance and competency assessments across multiple courses is difficult to maintain without a centralised system
 - **Certification Records** — generating, issuing, and storing certificates manually is slow, inconsistent, and difficult to verify
@@ -59,7 +64,7 @@ Many beauty academies, particularly small-to-medium institutions, continue to ma
 
 ### 2.4 The Importance of Digital Training Management Platforms
 
-A purpose built digital academy management platform addresses these challenges by centralising all academy operations into a single, accessible system. It provides:
+A purpose-built digital academy management platform addresses these challenges by centralising all academy operations into a single, accessible system. It provides:
 
 - A single source of truth for all course, student, and trainer data
 - Automated enrollment and scheduling workflows
@@ -74,7 +79,7 @@ A purpose built digital academy management platform addresses these challenges b
 
 The Bello Beauty Academy currently manages its training operations through a combination of manual processes, spreadsheets, and informal communication channels. This approach is insufficient for a growing academy and results in the following problems:
 
-1. **Inefficient Student Enrollment** — There is no structured digital enrollment process. Students enroll via phone, WhatsApp, or in-person visits, leading to duplicate records, missed applications, and administrative bottlenecks.
+1. **Inefficient Student Enrollment** — There is no structured digital enrollment process. Students enroll via phone, WhatsApp, or in person visits, leading to duplicate records, missed applications, and administrative bottlenecks.
 
 2. **Uncoordinated Class Scheduling** — Class timetables are managed in spreadsheets and shared informally. Scheduling conflicts between trainers and sessions occur regularly, and students frequently receive incorrect or late schedule information.
 
@@ -86,13 +91,15 @@ The Bello Beauty Academy currently manages its training operations through a com
 
 6. **Lack of Operational Visibility** — Academy management has no dashboard or reporting system to monitor enrollment numbers, course capacity, trainer workload, or revenue trends.
 
-**The Bello Beauty Academy** is proposed as a web-based management system that will resolve each of these challenges by digitising and automating the core operations of the academy.
+7. **No Payment Tracking System** — Proof of payment documents arrive informally via WhatsApp with no organised queue, audit trail, or systematic confirmation workflow.
+
+**The Bello Beauty Academy Platform** is proposed as a web-based management system that will resolve each of these challenges by digitising and automating the core operations of the academy.
 
 ---
 
 ## 4. System Scope
 
-This section defines the boundaries of the system for the initial release. 
+This section defines the boundaries of the system for the initial release. The scope has been designed to be comprehensive yet realistic.
 
 ### 4.1 In Scope
 
@@ -172,7 +179,7 @@ A **Trainer** is a qualified beauty professional employed by the academy to deli
 An **Administrator** is a member of academy staff responsible for the overall operational management of the platform and the academy.
 
 **Interactions with the system:**
-- Manages the full course catalogue: creates, edits, and archives courses
+- Manages the full course catalogue — creates, edits, and archives courses
 - Adds, updates, and deactivates trainer profiles
 - Reviews and processes student enrollment requests
 - Assigns trainers to courses and sessions
