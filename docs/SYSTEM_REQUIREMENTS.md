@@ -1,11 +1,11 @@
-# SYSTEM_REQUIREMENTS.md — Bello Beauty Academy Platform
+# SYSTEM_REQUIREMENTS : Bello Beauty Academy Platform
 
 **Document Version:** 1.0
 **Date:** March 2026
 **Assignment:** Assignment 4 — System Requirements Document (SRD)
 **Status:** Final
 
-> This document extends the requirements first established in [SPECIFICATION.md](./SPECIFICATION.md). It adds stakeholder-traced functional requirements with acceptance criteria and a comprehensive set of categorised non-functional requirements, as required by Assignment 4.
+> This document extends the requirements first established in [SPECIFICATION.md](./SPECIFICATION.md). It adds stakeholder-traced functional requirements with acceptance criteria and a comprehensive set of categorised non-functional requirements.
 
 ---
 
