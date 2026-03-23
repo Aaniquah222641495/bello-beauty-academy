@@ -1,4 +1,4 @@
-# STAKEHOLDER_ANALYSIS.md — Bello Beauty Academy Platform
+# STAKEHOLDER ANALYSIS:  Bello Beauty Academy Platform
 
 **Document Version:** 1.0
 **Date:** March 2026
