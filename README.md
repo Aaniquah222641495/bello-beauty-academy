@@ -41,7 +41,8 @@ bello-beauty-academy/
     ├── ARCHITECTURE.md              ← System architecture and C4 diagrams
     ├── STAKEHOLDER_ANALYSIS.md      ← Stakeholder analysis with roles, concerns, and success metrics
     ├── SYSTEM_REQUIREMENTS.md       ← Full SRD with acceptance criteria and NFR categories
-    └── REFLECTION.md                ← Reflection on balancing stakeholder needs
+    ├── REFLECTION.md                ← Reflection on translating requirements to use cases and tests
+    └── TEST_AND_USE_CASE.md         ← Use case diagrams, specifications, and test cases
 ```
 
 ---
@@ -54,7 +55,8 @@ bello-beauty-academy/
 | [ARCHITECTURE.md](./docs/ARCHITECTURE.md) | System architecture overview and C4 diagrams |
 | [STAKEHOLDER_ANALYSIS.md](./docs/STAKEHOLDER_ANALYSIS.md) | Stakeholder analysis table with roles, concerns, pain points, and success metrics |
 | [SYSTEM_REQUIREMENTS.md](./docs/SYSTEM_REQUIREMENTS.md) | Full System Requirements Document with functional requirements, acceptance criteria, NFRs, and traceability matrix |
-| [REFLECTION.md](./docs/REFLECTION.md) | Reflection on challenges faced in balancing stakeholder needs |
+| [REFLECTION.md](./docs/REFLECTION.md) | Reflection on challenges in translating requirements to use cases and tests |
+| [TEST_AND_USE_CASE.md](./docs/TEST_AND_USE_CASE.md) | Use case diagrams, use case specifications, and test cases |
 
 ---
 
