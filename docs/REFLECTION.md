@@ -1,63 +1,36 @@
-# REFLECTION.md — Bello Beauty Academy Platform
 
-**Document Version:** 1.0
+# REFLECTION_A5.md — Bello Beauty Academy Platform
+
+**Document Version:** 2.0
 **Date:** March 2026
-**Author:** Software Engineer / Requirements Analyst
-**Assignment:** Assignment 4 — Reflection on Balancing Stakeholder Needs
+**Assignment:** Assignment 5 — Reflection: Challenges in Translating Requirements to Use Cases and Tests
+**Status:** Final
 
 ---
 
-## Reflection: Challenges in Balancing Stakeholder Needs
+## Reflection: Challenges in Translating Requirements to Use Cases and Tests
 
-### Introduction
+Going into this assignment I thought translating requirements into use cases would be straightforward because the requirements were already written. What I quickly realised is that having requirements does not mean you automatically know how to model them. There were a number of challenges that made me think more carefully about the system than I had in any of the previous assignments.
 
-Eliciting and balancing stakeholder requirements is one of the most demanding aspects of software engineering. It is rarely a matter of simply recording what people ask for. It requires identifying where those requests conflict, understanding the real need behind each one, and making deliberate design decisions that serve the system as a whole. This reflection documents the key conflicts, trade offs, and design decisions I encountered while defining the requirements for the **Bello Beauty Academy Platform**.
+### Knowing What Counts as a Use Case
 
----
+The hardest part at the start was figuring out which things from the requirements were actually use cases and which were just system actions. For example, sending an enrollment confirmation email appeared in the requirements and I initially wanted to include it as a use case. But when I thought about it properly, I realised that no user sits down and deliberately initiates that action. It just happens automatically in the background after a student enrolls. Once I understood that a use case has to begin and end with an actor doing something meaningful, it became easier to filter out those kinds of entries. I ended up moving them into the postconditions of other use cases instead.
 
-### Conflict 1: Student Convenience vs. Administrator Payment Control
+### Deciding How Much to Break Things Up
 
-The sharpest conflict in this project was between the student's need for instant enrollment confirmation and the administrator's need to manually verify payment before granting course access.
+Another challenge was deciding how detailed each use case should be. The payment process was the most difficult one to figure out. At first I had it all as one big use case but it felt messy and the specification was hard to write clearly. I eventually split it into viewing the payment dashboard and confirming or rejecting a payment as two separate use cases, with an include relationship between them. That made the flows much cleaner and the test cases easier to write. I learned that breaking things up properly at the start saves a lot of confusion later.
 
-From the student's perspective (FR05, FR12), the expectation is straightforward: enroll, pay, and get access. Any delay feels like unnecessary friction. From the administrator's perspective (FR24, FR25), activating a student's enrollment before confirming payment is a financial risk the academy cannot absorb, particularly since the current payment model is cash and EFT only with no automated gateway.
+### Writing the Scope Statements
 
-Choosing one stakeholder over the other entirely would have broken the system for the other. Giving students instant access would undermine the academy's revenue controls. Requiring administrators to manually chase every enrollment would replicate the exact bottleneck the platform was designed to solve.
+I found writing the scope statements more difficult than expected. My first drafts were too vague, things like "the student accesses the schedule" without saying where or how. Once I started being specific about which button the actor clicks and which page they are on, the statements became much more useful. It also forced me to think about the interface in a way I had not before, which actually helped when thinking about what the system needs to display.
 
-**Design decision:** I introduced a formal enrollment lifecycle with three stages: pending, active, and completed. Automated email notifications are sent at every status transition. The student is notified immediately that their application is received (FR11) and again the moment payment is confirmed (FR27). I also added a structured proof of payment upload feature (FR06) so that students submit their bank slip through the platform rather than via WhatsApp. This gives payment staff a single organised dashboard (FR24) instead of a message inbox, which directly addresses the administrator's pain point without removing the payment verification step.
+### Writing Test Cases
 
----
-
-### Conflict 2: Trainer Simplicity vs. System Auditability
-
-Trainers are beauty professionals first. During stakeholder analysis it became clear that any attendance recording interface requiring more than a few taps would simply not be used reliably. At the same time, the administrator and payment processing staff stakeholders placed a firm requirement on audit trails. Every attendance record and assessment submission needed to log who made the entry and when, so that disputes could be resolved and records trusted.
-
-These two requirements pull in opposite directions. Adding visible audit fields such as "submitted by" labels, timestamps, and confirmation dialogs to the trainer interface would make it more cumbersome. Removing them would leave the system with unverifiable records.
-
-**Design decision:** I resolved this by separating the audit concern from the interface entirely. Audit metadata including the trainer's user ID and submission timestamp is captured automatically at the API layer on every POST request to `/api/attendance` and `/api/assessments`, with no input required from the trainer. The trainer sees a clean, minimal interface (NFR-U01) while the administrator sees a fully audited record. The burden of compliance sits in the system, not on the user.
-
----
-
-### Trade off: Security vs. Usability in Payment Document Access
-
-Proof of payment files contain sensitive financial information. Storing them in a publicly accessible location would be a serious security failure. However, making them too difficult to access would slow down the administrator's review workflow, which is one of the primary pain points the platform was built to solve.
-
-**Design decision:** I specified that uploaded POP files be stored in a private AWS S3 bucket, accessible only via presigned URLs with a 15-minute expiry (NFR-SEC05). From the administrator's perspective, the experience is seamless. One click on "View POP" in the payment dashboard generates the presigned URL and opens the file instantly. The security constraint is entirely invisible to the user, but the file is never publicly accessible. This is the kind of trade off that can only be resolved at the architecture level rather than the interface level.
-
----
-
-### Trade off: Feature Completeness vs. Maintainability
-
-The academy owner and the regulatory/certification body stakeholder both raised the expectation of a public certificate verification portal, giving employers or clients a way to confirm whether a certificate issued by the academy is genuine. This is a legitimate requirement traceable directly to the certification body's concern around traceability and verifiability.
-
-However, building a public facing verification API in the first release would have introduced considerable scope and complexity for a single developer project. Including it risked delivering an incomplete core system rather than a complete and maintainable one.
-
-**Design decision:** I deferred the public verification portal to the Future Scope section of the specification, but I designed the current system to support it without requiring any rework later. Every certificate generated by the platform is assigned a unique certificate number stored in the certificates table (FR22). When the verification portal is built in a future release, it will query that existing record with no schema changes required. This approach satisfies the spirit of the stakeholder concern now while keeping the current release scope realistic and the codebase maintainable (NFR-M01).
-
----
+The negative test cases were definitely the trickiest part of the assignment. Writing a test case for something that should fail, like trying to generate a certificate before all assessments are done, required me to think about exactly what the system should say and do in that situation. I noticed that some of my requirements did not actually specify this clearly enough. Going back and fixing those gaps in the use case specifications felt like the most valuable part of the whole process because it showed me how the different documents are supposed to connect.
 
 ### Conclusion
 
-What this process made clear to me is that good requirements engineering is not about satisfying every stakeholder fully. It is about making principled, documented decisions when their needs conflict. In each case above, the resolution was not a compromise that left everyone partially unhappy, but a design decision that addressed the core concern of each stakeholder without sacrificing the integrity of the system. The enrollment lifecycle, the API layer audit logging, the presigned URL pattern, and the future proof certificate schema are all direct products of stakeholder conflict. In each case, working through that conflict produced a better system than one designed without it.
+This assignment taught me that writing good use cases and test cases is not just about documenting what the system does. It is about understanding it well enough to describe it precisely. Every time I got stuck it was because I had not thought something through clearly enough in an earlier step, which is probably the point.
 
 ---
 
