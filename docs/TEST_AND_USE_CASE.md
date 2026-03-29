@@ -864,4 +864,3 @@ At step 3, if a certificate record already exists for this student and course co
 
 ---
 
-*End of Test and Use Case Document*
