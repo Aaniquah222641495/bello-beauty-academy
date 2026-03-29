@@ -1,5 +1,5 @@
 
-# REFLECTION_A5.md — Bello Beauty Academy Platform
+# REFLECTION_A5 : Bello Beauty Academy Platform
 
 **Document Version:** 2.0
 **Date:** March 2026
