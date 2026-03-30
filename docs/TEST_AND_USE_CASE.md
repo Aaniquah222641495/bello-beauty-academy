@@ -23,98 +23,12 @@
 
 This diagram shows all six actors and all 24 use cases across the four subsystems in a single view. Dashed arrows indicate include relationships where one use case depends on another.
 
-```mermaid
-graph LR
-    Student([👤 Student])
-    Trainer([👤 Trainer])
-    Admin([👤 Administrator])
-    PayStaff([👤 Payment Processing Staff])
-    Owner([👤 Academy Owner])
-    RegBody([👤 Regulatory Body])
-
-    subgraph Bello Beauty Academy Platform
-        subgraph Authentication
-            UC01([Register Account])
-            UC02([Login])
-        end
-
-        subgraph Student Portal
-            UC03([Browse Course Catalogue])
-            UC04([View Course Detail])
-            UC05([Enroll in Course])
-            UC06([Upload Proof of Payment])
-            UC07([View Payment Status])
-            UC08([View Class Schedule])
-            UC09([Access Course Materials])
-            UC10([Track Training Progress])
-            UC11([Download Certificate])
-        end
-
-        subgraph Trainer Portal
-            UC12([View Assigned Sessions])
-            UC13([Record Student Attendance])
-            UC14([Submit Assessment Results])
-            UC15([Upload Course Materials])
-        end
-
-        subgraph Admin Portal
-            UC16([Manage Courses])
-            UC17([Manage Trainer Profiles])
-            UC18([Manage Enrollments])
-            UC19([Manage Class Schedules])
-            UC20([View Payment Dashboard])
-            UC21([Confirm or Reject Payment])
-            UC22([Record Cash Payment])
-            UC23([Generate Certificate])
-            UC24([Generate Operational Reports])
-        end
-
-        UC05 -.->|include| UC06
-        UC08 -.->|include| UC07
-        UC11 -.->|include| UC10
-        UC13 -.->|include| UC12
-        UC21 -.->|include| UC20
-        UC22 -.->|include| UC20
-        UC23 -.->|include| UC14
-    end
-
-    Student --- UC01
-    Student --- UC02
-    Student --- UC03
-    Student --- UC04
-    Student --- UC05
-    Student --- UC06
-    Student --- UC07
-    Student --- UC08
-    Student --- UC09
-    Student --- UC10
-    Student --- UC11
-
-    Trainer --- UC02
-    Trainer --- UC12
-    Trainer --- UC13
-    Trainer --- UC14
-    Trainer --- UC15
-
-    Admin --- UC02
-    Admin --- UC16
-    Admin --- UC17
-    Admin --- UC18
-    Admin --- UC19
-    Admin --- UC20
-    Admin --- UC21
-    Admin --- UC22
-    Admin --- UC23
-    Admin --- UC24
-
-    PayStaff --- UC20
-    PayStaff --- UC21
-    PayStaff --- UC22
-
-    Owner --- UC24
-
-    RegBody --- UC23
+``` 
+    
+   
 ```
+<img width="1964" height="4368" alt="image" src="https://github.com/user-attachments/assets/9cb190f5-416b-4b83-9623-3d40b095f55f" />
+
 
 **Key Actors and Their Roles**
 
@@ -146,22 +60,10 @@ The system is partitioned into four role-based subsystems. Each diagram isolates
 
 ## Diagram 1: Authentication
 
-```mermaid
-graph LR
-    Student([Student])
-    Trainer([Trainer])
-    Admin([Administrator])
-
-    subgraph Authentication
-        UC01([UC01 Register Account])
-        UC02([UC02 Login])
-    end
-
-    Student --- UC01
-    Student --- UC02
-    Trainer --- UC02
-    Admin --- UC02
 ```
+
+```
+<img width="1424" height="824" alt="image" src="https://github.com/user-attachments/assets/07705bfc-3c9f-4355-9156-2a2fa47ef4db" />
 
 The Authentication subsystem handles account creation and login for all three primary actor types. Register Account is available to Students only since Trainer and Administrator accounts are created by the Administrator. Login is shared across all three roles and produces a role-specific JWT that determines what each user can access after signing in.
 
@@ -169,36 +71,13 @@ The Authentication subsystem handles account creation and login for all three pr
 
 ## Diagram 2: Student Portal
 
-```mermaid
-graph LR
-    Student([Student])
-
-    subgraph Student Portal
-        UC03([UC03 Browse Course Catalogue])
-        UC04([UC04 View Course Detail])
-        UC05([UC05 Enroll in Course])
-        UC06([UC06 Upload Proof of Payment])
-        UC07([UC07 View Payment Status])
-        UC08([UC08 View Class Schedule])
-        UC09([UC09 Access Course Materials])
-        UC10([UC10 Track Training Progress])
-        UC11([UC11 Download Certificate])
-
-        UC05 -.->|include| UC06
-        UC08 -.->|include| UC07
-        UC11 -.->|include| UC10
-    end
-
-    Student --- UC03
-    Student --- UC04
-    Student --- UC05
-    Student --- UC06
-    Student --- UC07
-    Student --- UC08
-    Student --- UC09
-    Student --- UC10
-    Student --- UC11
 ```
+
+
+```
+<img width="1804" height="1826" alt="image" src="https://github.com/user-attachments/assets/e1fe367c-206d-459f-bee6-9125e616b551" />
+
+
 
 The Student Portal covers the full student journey from discovering a course to downloading a certificate. Three include relationships are shown. Enroll in Course includes Upload Proof of Payment because every enrollment triggers the requirement to submit payment evidence. View Class Schedule includes View Payment Status because the schedule is only accessible once payment has been confirmed. Download Certificate includes Track Training Progress because the system verifies course completion via progress records before presenting the download option.
 
@@ -206,24 +85,10 @@ The Student Portal covers the full student journey from discovering a course to 
 
 ## Diagram 3: Trainer Portal
 
-```mermaid
-graph LR
-    Trainer([Trainer])
-
-    subgraph Trainer Portal
-        UC12([UC12 View Assigned Sessions])
-        UC13([UC13 Record Student Attendance])
-        UC14([UC14 Submit Assessment Results])
-        UC15([UC15 Upload Course Materials])
-
-        UC13 -.->|include| UC12
-    end
-
-    Trainer --- UC12
-    Trainer --- UC13
-    Trainer --- UC14
-    Trainer --- UC15
 ```
+```
+<img width="1924" height="856" alt="image" src="https://github.com/user-attachments/assets/1f31627f-94a3-42da-8656-0f23b25920fd" />
+
 
 The Trainer Portal covers all use cases performed by the Trainer within their dedicated portal. Record Student Attendance includes View Assigned Sessions because a trainer must have navigated to their session view before recording attendance for a specific session. Submit Assessment Results and Upload Course Materials are standalone use cases that a trainer can perform independently.
 
@@ -231,44 +96,11 @@ The Trainer Portal covers all use cases performed by the Trainer within their de
 
 ## Diagram 4: Admin Portal
 
-```mermaid
-graph LR
-    Admin([Administrator])
-    PayStaff([Payment Processing Staff])
-    Owner([Academy Owner])
-    RegBody([Regulatory / Certification Body])
-
-    subgraph Admin Portal
-        UC16([UC16 Manage Courses])
-        UC17([UC17 Manage Trainer Profiles])
-        UC18([UC18 Manage Enrollments])
-        UC19([UC19 Manage Class Schedules])
-        UC20([UC20 View Payment Dashboard])
-        UC21([UC21 Confirm or Reject Payment])
-        UC22([UC22 Record Cash Payment])
-        UC23([UC23 Generate Certificate])
-        UC24([UC24 Generate Operational Reports])
-
-        UC21 -.->|include| UC20
-        UC22 -.->|include| UC20
-        UC23 -.->|include| UC14
-    end
-
-    Admin --- UC16
-    Admin --- UC17
-    Admin --- UC18
-    Admin --- UC19
-    Admin --- UC20
-    Admin --- UC21
-    Admin --- UC22
-    Admin --- UC23
-    Admin --- UC24
-    PayStaff --- UC20
-    PayStaff --- UC21
-    PayStaff --- UC22
-    Owner --- UC24
-    RegBody --- UC23
 ```
+
+```
+<img width="2098" height="2076" alt="image" src="https://github.com/user-attachments/assets/d71c7c6e-f9cd-4c71-bc0b-983678f7a3e5" />
+
 
 The Admin Portal is the most comprehensive subsystem, covering all operational management use cases. Both Confirm or Reject Payment and Record Cash Payment include View Payment Dashboard because both actions begin from the payment dashboard. Generate Certificate includes Submit Assessment Results because all trainer assessments must be submitted before a certificate can be issued. The Payment Processing Staff actor shares access to the three payment use cases with the Administrator, reflecting the reality that payment processing is a specialised subset of the administrator role. The Academy Owner is associated only with Generate Operational Reports. The Regulatory / Certification Body is associated with Generate Certificate as an external stakeholder with a formal interest in certificate integrity.
 
