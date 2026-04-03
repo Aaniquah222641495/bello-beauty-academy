@@ -1,8 +1,8 @@
-# Test and Use Case Document — Bello Beauty Academy Platform
+# Test and Use Case Document : Bello Beauty Academy Platform
 
 **Document Version:** 1.0
 **Date:** March 2026
-**Assignment:** Assignment 5 — Test and Use Case Development
+**Assignment:** Assignment 5 — Use Case Modeling and Test Case Development
 **Status:** Final
 
 ---
@@ -10,38 +10,113 @@
 ## Table of Contents
 
 1. [Use Case Diagrams](#1-use-case-diagrams)
-   - [Deriving Use Cases from Requirements](#1-deriving-use-cases-from-requirements)
-   - [Identified Use Cases, Actors, and Subsystems](#2-identified-use-cases-actors-and-subsystems)
-   - [High-Level Use Case Scope Specifications](#3-high-level-use-case-scope-specifications)
-   - [Diagrams](#4-use-case-diagrams)
-   - [Diagram Explanation](#5-diagram-explanation)
-2. [Use Case Specifications](#2-use-case-specifications)
-3. [Test Cases](#3-test-cases)
+2. [Actors and Subsystems](#2-actors-and-subsystems)
+3. [High-Level Use Case Scope Specifications](#3-high-level-use-case-scope-specifications)
+4. [Use Case Specifications](#4-use-case-specifications)
+5. [Test Cases](#5-test-cases)
 
 ---
 
 # 1. Use Case Diagrams
 
+## High-Level System Overview
+
+This diagram shows all six actors and all 24 use cases across the four subsystems in a single view. Dashed arrows indicate include relationships where one use case depends on another.
+
+``` 
+    
+   
+```
+<img width="1964" height="4368" alt="image" src="https://github.com/user-attachments/assets/9cb190f5-416b-4b83-9623-3d40b095f55f" />
 
 
-## 1. Deriving Use Cases from Requirements
+**Key Actors and Their Roles**
 
-Use cases are derived by reading through the functional requirements and identifying domain-specific verb-noun phrases that represent complete business processes. Each candidate phrase is then evaluated against four questions:
+#### Student
+The Student is the primary end user of the platform. They initiate the majority of the core use cases, including browsing courses, enrolling, uploading proof of payment, tracking their training progress, and downloading their digital certificate on course completion.
 
-1. Is it a domain-specific business process?
-2. Does it begin with an actor?
-3. Does it end with the actor?
-4. Does it accomplish a business task for the actor?
+#### Trainer
+The Trainer is a qualified beauty professional who interacts with the system through a dedicated trainer portal. They view their assigned sessions, record student attendance, submit competency assessment results, and upload course materials for enrolled students.
 
-A verb-noun phrase is a use case only if all four answers are yes. Phrases that represent steps, operations, or automated background processes are excluded.
+#### Administrator
+The Administrator has the broadest system access of all user roles. They manage all operational aspects of the platform including the course catalogue, trainer profiles, student enrollments, class schedules, payment verification, certificate generation, and operational reporting.
+
+#### Payment Processing Staff
+The Payment Processing Staff shares access to the payment-related use cases with the Administrator. They review uploaded proof of payment documents, confirm or reject payments, and record cash payments against student enrollments. In a small academy this role may be performed by the same person as the Administrator.
+
+#### Academy Owner
+The Academy Owner interacts with the system solely through the Generate Operational Reports use case. This gives them visibility into enrollment numbers, course completion rates, and revenue without direct involvement in day-to-day operations.
+
+#### Regulatory / Certification Body
+The Regulatory / Certification Body is an external stakeholder with a formal interest in the Generate Certificate use case. They do not log in or operate the platform directly, but every certificate the system produces must meet their traceability and formatting standards to be recognised as a valid industry credential.
 
 ---
 
-## 2. Identified Use Cases, Actors, and Subsystems
+## Partitioned Subsystem Diagrams
 
-Use cases are grouped into subsystems based on the actor whose role they serve, using role-based partition.
+The system is partitioned into four role-based subsystems. Each diagram isolates one actor domain to improve readability and functional cohesion.
 
-### Actors
+---
+
+## Diagram 1: Authentication
+
+```
+
+```
+<img width="1424" height="824" alt="image" src="https://github.com/user-attachments/assets/07705bfc-3c9f-4355-9156-2a2fa47ef4db" />
+
+The Authentication subsystem handles account creation and login for all three primary actor types. Register Account is available to Students only since Trainer and Administrator accounts are created by the Administrator. Login is shared across all three roles and produces a role-specific JWT that determines what each user can access after signing in.
+
+---
+
+## Diagram 2: Student Portal
+
+```
+
+
+```
+<img width="1804" height="1826" alt="image" src="https://github.com/user-attachments/assets/e1fe367c-206d-459f-bee6-9125e616b551" />
+
+
+
+The Student Portal covers the full student journey from discovering a course to downloading a certificate. Three include relationships are shown. Enroll in Course includes Upload Proof of Payment because every enrollment triggers the requirement to submit payment evidence. View Class Schedule includes View Payment Status because the schedule is only accessible once payment has been confirmed. Download Certificate includes Track Training Progress because the system verifies course completion via progress records before presenting the download option.
+
+---
+
+## Diagram 3: Trainer Portal
+
+```
+```
+<img width="1924" height="856" alt="image" src="https://github.com/user-attachments/assets/1f31627f-94a3-42da-8656-0f23b25920fd" />
+
+
+The Trainer Portal covers all use cases performed by the Trainer within their dedicated portal. Record Student Attendance includes View Assigned Sessions because a trainer must have navigated to their session view before recording attendance for a specific session. Submit Assessment Results and Upload Course Materials are standalone use cases that a trainer can perform independently.
+
+---
+
+## Diagram 4: Admin Portal
+
+```
+
+```
+<img width="2098" height="2076" alt="image" src="https://github.com/user-attachments/assets/d71c7c6e-f9cd-4c71-bc0b-983678f7a3e5" />
+
+
+The Admin Portal is the most comprehensive subsystem, covering all operational management use cases. Both Confirm or Reject Payment and Record Cash Payment include View Payment Dashboard because both actions begin from the payment dashboard. Generate Certificate includes Submit Assessment Results because all trainer assessments must be submitted before a certificate can be issued. The Payment Processing Staff actor shares access to the three payment use cases with the Administrator, reflecting the reality that payment processing is a specialised subset of the administrator role. The Academy Owner is associated only with Generate Operational Reports. The Regulatory / Certification Body is associated with Generate Certificate as an external stakeholder with a formal interest in certificate integrity.
+
+**How the Diagrams Address Stakeholder Concerns from Assignment 4**
+
+The Student Portal subsystem resolves the student stakeholder's most significant pain points: the absence of a central course browsing platform (Browse Course Catalogue), the informal WhatsApp-based enrollment process (Enroll in Course), the lack of payment status visibility (View Payment Status), and the unavailability of digital certificates (Download Certificate).
+
+The Trainer Portal subsystem resolves the trainer stakeholder's pain points around informal session communication (View Assigned Sessions) and paper-based attendance registers (Record Student Attendance).
+
+The Admin Portal subsystem resolves the academy administrator's most critical operational pain point, which was the complete absence of a structured payment tracking system. The View Payment Dashboard, Confirm or Reject Payment, and Record Cash Payment use cases replace the existing WhatsApp-based proof of payment workflow with a systematic, auditable digital process.
+
+---
+
+# 2. Actors and Subsystems
+
+Use cases are grouped into subsystems based on the actor whose role they serve.
 
 | Actor | Type | Description |
 |-------|------|-------------|
@@ -88,7 +163,7 @@ Use cases are grouped into subsystems based on the actor whose role they serve, 
 
 ---
 
-## 3. High-Level Use Case Scope Specifications
+# 3. High-Level Use Case Scope Specifications
 
 Each use case scope is specified in two declarative sentences written in third-person simple present tense: one stating when and where the use case begins, and one stating when it ends and what the actor has accomplished.
 
@@ -114,297 +189,14 @@ Each use case scope is specified in two declarative sentences written in third-p
 | UC18 | Manage Enrollments | This use case begins with an administrator clicking the Manage Enrollments link on the admin dashboard. | This use case ends with the administrator seeing the updated enrollment list with the new status applied. |
 | UC19 | Manage Class Schedules | This use case begins with an administrator clicking the Manage Schedules link on the admin dashboard. | This use case ends with the administrator seeing the updated session schedule published and visible to enrolled students. |
 | UC20 | View Payment Dashboard | This use case begins with an administrator clicking the Payment Dashboard link on the admin dashboard. | This use case ends with the administrator seeing all enrollments grouped by payment status with confirm, reject, and view POP actions available. |
-| UC21 | Confirm or Reject Payment | This use case begins with an administrator clicking the View POP button for a pending payment on the payment dashboard. | This use case ends with the administrator seeing the payment status updated and the student notified by email. |
+| UC21 | Confirm or Reject Payment | This use case begins with an administrator clicking the View POP button for a pending payment on the payment dashboard. | This use case ends with the administrator seeing the payment status updated and the student notified by automated email. |
 | UC22 | Record Cash Payment | This use case begins with an administrator clicking the Record Cash Payment button for a student enrollment on the payment dashboard. | This use case ends with the administrator seeing the payment status set to confirmed and the enrollment status updated to active. |
 | UC23 | Generate Certificate | This use case begins with an administrator clicking the Generate Certificate button for a student's completed enrollment. | This use case ends with the administrator seeing a confirmation that the certificate has been generated, stored, and the student has been notified. |
 | UC24 | Generate Operational Reports | This use case begins with an administrator clicking the Reports link and selecting a report type and date range. | This use case ends with the administrator seeing the generated report and being able to export it in CSV format. |
 
 ---
 
-## 4. Use Case Diagrams
-
-Use cases are first presented in a high-level overview diagram showing all actors and use cases in a single view, followed by four partitioned subsystem diagrams that break the system down by actor role for clarity.
-
-### Diagram 0: High-Level System Overview
-
-```mermaid
-graph LR
-    Student([👤 Student])
-    Trainer([👤 Trainer])
-    Admin([👤 Administrator])
-    PayStaff([👤 Payment Processing Staff])
-    Owner([👤 Academy Owner])
-    RegBody([👤 Regulatory Body])
-
-    subgraph Bello Beauty Academy Platform
-        subgraph Authentication
-            UC01([Register Account])
-            UC02([Login])
-        end
-
-        subgraph Student Portal
-            UC03([Browse Course Catalogue])
-            UC04([View Course Detail])
-            UC05([Enroll in Course])
-            UC06([Upload Proof of Payment])
-            UC07([View Payment Status])
-            UC08([View Class Schedule])
-            UC09([Access Course Materials])
-            UC10([Track Training Progress])
-            UC11([Download Certificate])
-        end
-
-        subgraph Trainer Portal
-            UC12([View Assigned Sessions])
-            UC13([Record Student Attendance])
-            UC14([Submit Assessment Results])
-            UC15([Upload Course Materials])
-        end
-
-        subgraph Admin Portal
-            UC16([Manage Courses])
-            UC17([Manage Trainer Profiles])
-            UC18([Manage Enrollments])
-            UC19([Manage Class Schedules])
-            UC20([View Payment Dashboard])
-            UC21([Confirm or Reject Payment])
-            UC22([Record Cash Payment])
-            UC23([Generate Certificate])
-            UC24([Generate Operational Reports])
-        end
-
-        UC05 -.->|include| UC06
-        UC08 -.->|include| UC07
-        UC11 -.->|include| UC10
-        UC13 -.->|include| UC12
-        UC21 -.->|include| UC20
-        UC22 -.->|include| UC20
-        UC23 -.->|include| UC14
-    end
-
-    Student --- UC01
-    Student --- UC02
-    Student --- UC03
-    Student --- UC04
-    Student --- UC05
-    Student --- UC06
-    Student --- UC07
-    Student --- UC08
-    Student --- UC09
-    Student --- UC10
-    Student --- UC11
-
-    Trainer --- UC02
-    Trainer --- UC12
-    Trainer --- UC13
-    Trainer --- UC14
-    Trainer --- UC15
-
-    Admin --- UC02
-    Admin --- UC16
-    Admin --- UC17
-    Admin --- UC18
-    Admin --- UC19
-    Admin --- UC20
-    Admin --- UC21
-    Admin --- UC22
-    Admin --- UC23
-    Admin --- UC24
-
-    PayStaff --- UC20
-    PayStaff --- UC21
-    PayStaff --- UC22
-
-    Owner --- UC24
-
-    RegBody --- UC23
-```
-
----
-
-### Partitioned Subsystem Diagrams
-
-The system is partitioned into four role-based subsystems below. Each diagram isolates one actor domain to improve readability and functional cohesion.
-
----
-
-### Diagram 1: Authentication
-
-```mermaid
-graph LR
-    Student([Student])
-    Trainer([Trainer])
-    Admin([Administrator])
-
-    subgraph Authentication
-        UC01([UC01 Register Account])
-        UC02([UC02 Login])
-    end
-
-    Student --- UC01
-    Student --- UC02
-    Trainer --- UC02
-    Admin --- UC02
-```
-
-### Diagram 2: Student Portal
-
-```mermaid
-graph LR
-    Student([Student])
-
-    subgraph Student Portal
-        UC03([UC03 Browse Course Catalogue])
-        UC04([UC04 View Course Detail])
-        UC05([UC05 Enroll in Course])
-        UC06([UC06 Upload Proof of Payment])
-        UC07([UC07 View Payment Status])
-        UC08([UC08 View Class Schedule])
-        UC09([UC09 Access Course Materials])
-        UC10([UC10 Track Training Progress])
-        UC11([UC11 Download Certificate])
-
-        UC05 -.->|include| UC06
-        UC08 -.->|include| UC07
-        UC11 -.->|include| UC10
-    end
-
-    Student --- UC03
-    Student --- UC04
-    Student --- UC05
-    Student --- UC06
-    Student --- UC07
-    Student --- UC08
-    Student --- UC09
-    Student --- UC10
-    Student --- UC11
-```
-
-### Diagram 3: Trainer Portal
-
-```mermaid
-graph LR
-    Trainer([Trainer])
-
-    subgraph Trainer Portal
-        UC12([UC12 View Assigned Sessions])
-        UC13([UC13 Record Student Attendance])
-        UC14([UC14 Submit Assessment Results])
-        UC15([UC15 Upload Course Materials])
-
-        UC13 -.->|include| UC12
-    end
-
-    Trainer --- UC12
-    Trainer --- UC13
-    Trainer --- UC14
-    Trainer --- UC15
-```
-
-### Diagram 4: Admin Portal
-
-```mermaid
-graph LR
-    Admin([Administrator])
-    PayStaff([Payment Processing Staff])
-    Owner([Academy Owner])
-    RegBody([Regulatory / Certification Body])
-
-    subgraph Admin Portal
-        UC16([UC16 Manage Courses])
-        UC17([UC17 Manage Trainer Profiles])
-        UC18([UC18 Manage Enrollments])
-        UC19([UC19 Manage Class Schedules])
-        UC20([UC20 View Payment Dashboard])
-        UC21([UC21 Confirm or Reject Payment])
-        UC22([UC22 Record Cash Payment])
-        UC23([UC23 Generate Certificate])
-        UC24([UC24 Generate Operational Reports])
-
-        UC21 -.->|include| UC20
-        UC22 -.->|include| UC20
-        UC23 -.->|include| UC14
-    end
-
-    Admin --- UC16
-    Admin --- UC17
-    Admin --- UC18
-    Admin --- UC19
-    Admin --- UC20
-    Admin --- UC21
-    Admin --- UC22
-    Admin --- UC23
-    Admin --- UC24
-    PayStaff --- UC20
-    PayStaff --- UC21
-    PayStaff --- UC22
-    Owner --- UC24
-    RegBody --- UC23
-```
-
----
-
-## 5. Diagram Explanation
-
-### Key Actors and Their Roles
-
-#### Student
-The Student is the primary end user of the platform. They initiate the majority of the core use cases, including browsing courses, enrolling, uploading proof of payment, tracking their training progress, and downloading their digital certificate on course completion.
-
-#### Trainer
-The Trainer is a qualified beauty professional who interacts with the system through a dedicated trainer portal. They view their assigned sessions, record student attendance, submit competency assessment results, and upload course materials for enrolled students.
-
-#### Administrator
-The Administrator has the broadest system access of all user roles. They manage all operational aspects of the platform including the course catalogue, trainer profiles, student enrollments, class schedules, payment verification, certificate generation, and operational reporting.
-
-#### Payment Processing Staff
-The Payment Processing Staff shares access to the payment-related use cases with the Administrator. They review uploaded proof of payment documents, confirm or reject payments, and record cash payments against student enrollments. In a small academy this role may be performed by the same person as the Administrator.
-
-#### Academy Owner
-The Academy Owner interacts with the system solely through the Generate Operational Reports use case. This gives them visibility into enrollment numbers, course completion rates, and revenue without direct involvement in day-to-day operations.
-
-#### Regulatory / Certification Body
-The Regulatory / Certification Body is an external stakeholder with a formal interest in the Generate Certificate use case. They do not log in or operate the platform directly, but every certificate the system produces must meet their traceability and formatting standards to be recognised as a valid industry credential.
-
----
-
-### Relationships Between Actors and Use Cases
-
-**Association relationships** connect every actor to the use cases they can initiate. For example, the Student actor can initiate the Enroll in Course use case, the View Class Schedule use case, and the Download Certificate use case, among others. The Administrator actor can initiate all use cases within the Admin Portal subsystem including Confirm or Reject Payment and Generate Certificate.
-
-**Include relationships** are shown where one use case is a mandatory part of another's business process — the included use case must always be executed as part of the base use case.
-
-- The **Student** actor initiates the **Enroll in Course** use case, which includes the **Upload Proof of Payment** use case. This means every enrollment automatically requires the student to submit proof of payment. This addresses the student stakeholder's pain point around informal enrollment with no structured payment submission process.
-- The **Student** actor initiates the **View Class Schedule** use case, which includes the **View Payment Status** use case. The schedule is only accessible once payment has been confirmed, so the system checks payment status as part of this process. This supports the administrator's concern that students should not access course content before payment is verified.
-- The **Student** actor initiates the **Download Certificate** use case, which includes the **Track Training Progress** use case. The system verifies course completion via progress records before presenting the certificate download option. This supports the regulatory body's concern that certificates are only issued to students who have genuinely completed the course.
-- The **Trainer** actor initiates the **Record Student Attendance** use case, which includes the **View Assigned Sessions** use case. A trainer must have navigated to their session view before recording attendance for a specific session.
-- The **Administrator** actor initiates the **Confirm or Reject Payment** use case, which includes the **View Payment Dashboard** use case. The administrator must be on the payment dashboard before they can access an individual payment for review.
-- The **Administrator** actor initiates the **Record Cash Payment** use case, which also includes the **View Payment Dashboard** use case, as this action also begins from the payment dashboard.
-- The **Administrator** actor initiates the **Generate Certificate** use case, which includes the **Submit Assessment Results** use case. All trainer assessments must be submitted before a certificate can be generated, ensuring that certificates are only issued to students who have been formally assessed.
-
-**Generalisation** exists between the Administrator and Payment Processing Staff actors. Both actors share access to the View Payment Dashboard, Confirm or Reject Payment, and Record Cash Payment use cases. This reflects the reality that payment processing responsibilities are a specialised subset of the administrator role, and in a small academy the same person may perform both functions.
-
----
-
-### How the Diagrams Address Stakeholder Concerns from Assignment 4
-
-The use case model directly addresses the stakeholder concerns and pain points identified in [STAKEHOLDER_ANALYSIS.md](./STAKEHOLDER_ANALYSIS.md).
-
-The Student Portal subsystem resolves the student stakeholder's most significant pain points: the absence of a central course browsing platform (Browse Course Catalogue), the informal WhatsApp-based enrollment process (Enroll in Course), the lack of payment status visibility (View Payment Status), and the unavailability of digital certificates (Download Certificate).
-
-The Trainer Portal subsystem resolves the trainer stakeholder's pain points around informal session communication (View Assigned Sessions) and paper-based attendance registers (Record Student Attendance).
-
-The Admin Portal subsystem resolves the academy administrator's most critical operational pain point — the complete absence of a structured payment tracking system. The View Payment Dashboard, Confirm or Reject Payment, and Record Cash Payment use cases replace the existing WhatsApp-based proof of payment workflow with a systematic, auditable digital process. This directly addresses the concern raised by both the administrator and payment processing staff stakeholders.
-
-The Requirements-Use Case Traceability Matrix in Section 5 confirms that every functional requirement from Assignment 4 is realised by at least one use case, and that every use case is justified by at least one requirement. No requirement is left unaddressed and no use case is included without justification.
-
----
-
----
-
-# 2. Use Case Specifications
-
-
+# 4. Use Case Specifications
 
 ## UC01 — Register Account
 
@@ -475,7 +267,7 @@ At step 5, if the password contains fewer than 8 characters, the system displays
 > **This use case ends with** the student seeing a confirmation message that their enrollment application has been received and instructions to upload their proof of payment.
 
 **Description:**
-An authenticated student submits an enrollment application for a selected training course. This is a business process that begins with the student's deliberate action to enroll and ends when the system confirms receipt of the application. This use case includes UC06 (Upload Proof of Payment) because enrollment always triggers the requirement to submit payment evidence.
+An authenticated student submits an enrollment application for a selected training course. This use case includes UC06 (Upload Proof of Payment) because enrollment always triggers the requirement to submit payment evidence.
 
 **Preconditions:**
 - The student is authenticated with a valid session (JWT with role `student`).
@@ -485,7 +277,7 @@ An authenticated student submits an enrollment application for a selected traini
 **Postconditions:**
 - An enrollment record is created in the database with status `pending`.
 - A linked payment record is created with status `pending`.
-- An automated enrollment confirmation email is dispatched to the student within 60 seconds, containing the course name, enrollment date, and instructions for submitting proof of payment.
+- An automated enrollment confirmation email is dispatched to the student within 60 seconds.
 
 **Basic Flow:**
 1. The student browses the course catalogue and selects a course to view in detail.
@@ -538,7 +330,7 @@ An authenticated student uploads a proof of payment document (bank slip or EFT s
 - The uploaded file is stored in the private AWS S3 bucket.
 - The S3 file path is recorded in the payment record.
 - The student sees an on-screen confirmation.
-- An automated notification is dispatched to the administrator indicating a new proof of payment is awaiting review.
+- An automated notification is dispatched to the administrator.
 
 **Basic Flow:**
 1. The student navigates to the enrollment dashboard.
@@ -561,7 +353,7 @@ At step 6, if the selected file is not JPEG, PNG, or PDF, the system displays: "
 At step 6, if the file exceeds 5 MB, the system displays: "Your file exceeds the maximum allowed size of 5 MB. Please reduce the file size and try again."
 
 *AF03 — Upload Failure:*
-At step 7, if the S3 upload fails due to a network or service error, the system displays: "Your file could not be uploaded at this time. Please try again." No file path is recorded and no notification is sent.
+At step 7, if the S3 upload fails due to a network or service error, the system displays: "Your file could not be uploaded at this time. Please try again." No file path is recorded.
 
 ---
 
@@ -586,7 +378,7 @@ An authenticated student downloads their digital certificate in PDF format once 
 **Preconditions:**
 - The student is authenticated with a valid session.
 - The administrator has generated and issued a certificate for the student's completed course enrollment.
-- A certificate metadata record exists in the `certificates` table for the student and course.
+- A certificate metadata record exists in the `certificates` table.
 
 **Postconditions:**
 - The PDF certificate is streamed to the student's browser for download.
@@ -604,7 +396,7 @@ An authenticated student downloads their digital certificate in PDF format once 
 **Alternative Flows:**
 
 *AF01 — Certificate Not Yet Issued:*
-At step 2, if the administrator has not yet generated a certificate for the completed enrollment, the Download Certificate button is not displayed. The enrollment shows a status of `completed` or `active` without a download option.
+At step 2, if the administrator has not yet generated a certificate, the Download Certificate button is not displayed.
 
 *AF02 — File Retrieval Failure:*
 At step 5, if the S3 file cannot be retrieved, the system displays: "Your certificate could not be downloaded at this time. Please try again or contact the academy."
@@ -627,7 +419,7 @@ At step 5, if the S3 file cannot be retrieved, the system displays: "Your certif
 > **This use case ends with** the trainer seeing a confirmation that attendance records have been saved for all enrolled students in that session.
 
 **Description:**
-An authenticated trainer records the attendance status of each enrolled student for a training session they are assigned to. Attendance records are stored with an audit timestamp and the trainer's user ID. This use case includes UC12 (View Assigned Sessions) because the trainer must have navigated to their session view before recording attendance.
+An authenticated trainer records the attendance status of each enrolled student for a training session they are assigned to. Attendance records are stored with an audit timestamp and the trainer's user ID.
 
 **Preconditions:**
 - The trainer is authenticated with a valid session (JWT with role `trainer`).
@@ -651,7 +443,7 @@ An authenticated trainer records the attendance status of each enrolled student 
 **Alternative Flows:**
 
 *AF01 — Recording Window Expired:*
-At step 2, if more than 24 hours have passed since the session end time, the system displays: "The attendance recording window for this session has closed." The trainer cannot submit attendance for that session.
+At step 2, if more than 24 hours have passed since the session end time, the system displays: "The attendance recording window for this session has closed."
 
 *AF02 — No Students Enrolled:*
 At step 3, if no students are enrolled in the session, the system displays: "There are no enrolled students for this session."
@@ -677,7 +469,7 @@ At step 5, if one or more students have not been assigned an attendance status, 
 > **This use case ends with** the trainer seeing a confirmation that the assessment result has been saved and is now visible on the student's progress dashboard.
 
 **Description:**
-An authenticated trainer submits a competency assessment result for an enrolled student in a course they are assigned to. Assessment results are required before an administrator can generate a certificate for the student (UC23 includes this use case).
+An authenticated trainer submits a competency assessment result for an enrolled student in a course they are assigned to. Assessment results are required before an administrator can generate a certificate for the student.
 
 **Preconditions:**
 - The trainer is authenticated with a valid session.
@@ -723,7 +515,7 @@ At step 5, if no competency rating has been provided, the system displays: "Plea
 > **This use case ends with** the administrator seeing the payment status updated to confirmed or rejected, and the student notified by automated email.
 
 **Description:**
-An authenticated administrator or payment processing staff member reviews a student's uploaded proof of payment document and either confirms or rejects it. Confirming a payment activates the student's enrollment and triggers an email notification. Rejecting a payment prompts the student to resubmit. This use case includes UC20 (View Payment Dashboard) because the administrator must be on the payment dashboard before they can access an individual payment for review.
+An authenticated administrator or payment processing staff member reviews a student's uploaded proof of payment document and either confirms or rejects it. Confirming a payment activates the student's enrollment. Rejecting a payment prompts the student to resubmit.
 
 **Preconditions:**
 - The administrator or payment processing staff is authenticated with a valid session.
@@ -754,14 +546,10 @@ An authenticated administrator or payment processing staff member reviews a stud
 **Alternative Flows:**
 
 *AF01 — Administrator Rejects Payment:*
-At step 5, the administrator clicks Reject Payment instead of Confirm Payment.
-- The system updates the payment status to `rejected`.
-- The system logs the rejection with the administrator's user ID and timestamp.
-- The system dispatches a rejection email to the student with instructions to resubmit their proof of payment.
-- The system displays: "Payment rejected. The student has been notified."
+At step 5, the administrator clicks Reject Payment instead of Confirm Payment. The system updates the payment status to `rejected`, logs the rejection, and dispatches a rejection email to the student with instructions to resubmit.
 
 *AF02 — POP File Not Accessible:*
-At step 3, if the S3 file cannot be retrieved, the system displays: "The proof of payment document could not be loaded. Please try again." No status change is made until the document has been successfully reviewed.
+At step 3, if the S3 file cannot be retrieved, the system displays: "The proof of payment document could not be loaded. Please try again." No status change is made.
 
 ---
 
@@ -792,7 +580,7 @@ An authenticated administrator generates and issues a branded digital PDF certif
 **Postconditions:**
 - A branded PDF certificate is generated containing the student's full name, course name, completion date, academy logo, and a unique certificate number.
 - The PDF is stored in the private AWS S3 bucket.
-- A certificate metadata record is created in the `certificates` table with the student ID, course ID, issue date, unique certificate number, and S3 file path.
+- A certificate metadata record is created in the `certificates` table.
 - The enrollment status is updated to `completed`.
 - A certificate-ready email is dispatched to the student containing a download link.
 
@@ -811,41 +599,37 @@ An authenticated administrator generates and issues a branded digital PDF certif
 **Alternative Flows:**
 
 *AF01 — Assessments Incomplete:*
-At step 4, if one or more competency assessments have not been submitted for the enrollment, the system displays: "All competency assessments must be submitted by the trainer before a certificate can be generated." The Generate Certificate button is disabled until all assessments are complete.
+At step 4, if one or more competency assessments have not been submitted, the system displays: "All competency assessments must be submitted by the trainer before a certificate can be generated." The Generate Certificate button is disabled until all assessments are complete.
 
 *AF02 — Certificate Already Issued:*
 At step 3, if a certificate record already exists for this student and course combination, the system displays: "A certificate has already been issued for this enrollment." and provides a link to the existing certificate.
 
 ---
 
----
+# 5. Test Cases
 
-# 3. Test Cases
-
-
-
-## 1. Functional Test Cases
+## Functional Test Cases
 
 | Test Case ID | Requirement ID | Description | Steps | Expected Result | Actual Result | Status (Pass/Fail) |
 |---|---|---|---|---|---|---|
 | TC001 | FR01 | Student registers a new account with valid details | 1. Navigate to the registration page. <br> 2. Enter a valid full name, email address, and password of at least 8 characters. <br> 3. Click Submit. | A student account is created in the database with role `student`. The student is redirected to their personal dashboard. A confirmation email is dispatched within 60 seconds. | — | — |
-| TC002 | FR01 | Registration rejected when email address already exists | 1. Navigate to the registration page. <br> 2. Enter an email address that is already registered in the system. <br> 3. Click Submit. | The system displays: "An account with this email address already exists." No new record is created in the database. The student remains on the registration page. | — | — |
+| TC002 | FR01 | Registration rejected when email address already exists | 1. Navigate to the registration page. <br> 2. Enter an email address that is already registered in the system. <br> 3. Click Submit. | The system displays: "An account with this email address already exists." No new record is created. The student remains on the registration page. | — | — |
 | TC003 | FR02 | Registered student logs in with valid credentials | 1. Navigate to the login page. <br> 2. Enter a valid registered student email and correct password. <br> 3. Click Login. | The system issues a JWT with role `student`. The student is redirected to their personal dashboard. | — | — |
 | TC004 | FR02 | Login rejected when incorrect password is entered | 1. Navigate to the login page. <br> 2. Enter a valid registered email with an incorrect password. <br> 3. Click Login. | The system returns HTTP 401. A generic error message is displayed. No JWT is issued and no session is created. | — | — |
-| TC005 | FR05 | Student successfully enrolls in an active course | 1. Log in as a registered student. <br> 2. Navigate to the course catalogue and select an active course. <br> 3. Click View Detail. <br> 4. Click Enroll. | An enrollment record is created with status `pending`. A linked payment record is created with status `pending`. An automated confirmation email is dispatched to the student within 60 seconds including the course name and payment instructions. | — | — |
-| TC006 | FR05 | Enrollment rejected when student is already enrolled in that course | 1. Log in as a student who is already enrolled in a specific course. <br> 2. Navigate to the same course detail page. <br> 3. Attempt to click Enroll. | The system returns HTTP 409 and displays: "You are already enrolled in this course." No duplicate enrollment record is created. | — | — |
+| TC005 | FR05 | Student successfully enrolls in an active course | 1. Log in as a registered student. <br> 2. Navigate to the course catalogue and select an active course. <br> 3. Click View Detail. <br> 4. Click Enroll. | An enrollment record is created with status `pending`. A linked payment record is created with status `pending`. An automated confirmation email is dispatched to the student within 60 seconds. | — | — |
+| TC006 | FR05 | Enrollment rejected when student is already enrolled in that course | 1. Log in as a student already enrolled in a specific course. <br> 2. Navigate to the same course detail page. <br> 3. Attempt to click Enroll. | The system returns HTTP 409 and displays: "You are already enrolled in this course." No duplicate record is created. | — | — |
 | TC007 | FR06 | Student uploads a valid proof of payment document | 1. Log in as a student with a pending enrollment. <br> 2. Navigate to the enrollment dashboard. <br> 3. Click Upload Proof of Payment. <br> 4. Select a valid PDF file under 5 MB. <br> 5. Click Submit. | The file is stored in the private AWS S3 bucket. The S3 file path is recorded in the payment record. The student sees a confirmation message. An automated notification is dispatched to the administrator. | — | — |
 | TC008 | FR06 | Proof of payment upload rejected for unsupported file type | 1. Log in as a student with a pending enrollment. <br> 2. Navigate to the enrollment dashboard. <br> 3. Click Upload Proof of Payment. <br> 4. Select a file in an unsupported format (e.g., .xlsx). <br> 5. Click Submit. | The system displays: "Only JPEG, PNG, and PDF files are accepted." No file is uploaded. No payment record is updated. | — | — |
 | TC009 | FR15 | Trainer records attendance for all students in an assigned session | 1. Log in as a trainer. <br> 2. Navigate to an assigned session within the 24-hour recording window. <br> 3. Set an attendance status of Present, Absent, or Late for each enrolled student. <br> 4. Click Save Attendance. | Attendance records are saved for all students. Each record contains the attendance status, the trainer's user ID, and a submission timestamp. Records are immediately reflected on student progress dashboards. | — | — |
 | TC010 | FR25 | Administrator confirms a student proof of payment | 1. Log in as an administrator. <br> 2. Open the payment dashboard. <br> 3. Select a pending payment and click View POP. <br> 4. Review the document. <br> 5. Click Confirm Payment. | Payment status is updated to `confirmed`. Enrollment status is updated to `active`. A confirmation email is dispatched to the student within 60 seconds. The action is logged with the administrator's user ID and a timestamp. | — | — |
-| TC011 | FR25 | Administrator rejects a student proof of payment | 1. Log in as an administrator. <br> 2. Open the payment dashboard. <br> 3. Select a pending payment and click Reject Payment. | Payment status is updated to `rejected`. A rejection email is dispatched to the student with instructions to resubmit their proof of payment. The action is logged with the administrator's user ID and a timestamp. | — | — |
+| TC011 | FR25 | Administrator rejects a student proof of payment | 1. Log in as an administrator. <br> 2. Open the payment dashboard. <br> 3. Select a pending payment and click Reject Payment. | Payment status is updated to `rejected`. A rejection email is dispatched to the student with instructions to resubmit. The action is logged with the administrator's user ID and a timestamp. | — | — |
 | TC012 | FR22 | Administrator generates a certificate for a completed enrollment | 1. Log in as an administrator. <br> 2. Navigate to a student enrollment where all competency assessments have been submitted. <br> 3. Click Generate Certificate. | A branded PDF certificate is generated containing the student's full name, course name, completion date, and a unique certificate number. The PDF is stored in S3. A metadata record is created in the `certificates` table. The enrollment status is updated to `completed`. A certificate-ready email is dispatched to the student. | — | — |
-| TC013 | FR22 | Certificate generation blocked when assessments are incomplete | 1. Log in as an administrator. <br> 2. Navigate to a student enrollment where one or more assessments have not been submitted by the trainer. <br> 3. Attempt to click Generate Certificate. | The system displays: "All competency assessments must be submitted by the trainer before a certificate can be generated." No certificate is created. The Generate Certificate button is disabled until all assessments are complete. | — | — |
+| TC013 | FR22 | Certificate generation blocked when assessments are incomplete | 1. Log in as an administrator. <br> 2. Navigate to a student enrollment where one or more assessments have not been submitted. <br> 3. Attempt to click Generate Certificate. | The system displays: "All competency assessments must be submitted by the trainer before a certificate can be generated." No certificate is created. The Generate Certificate button is disabled. | — | — |
 | TC014 | FR10 | Student downloads their issued certificate | 1. Log in as a student with a completed enrollment and an issued certificate. <br> 2. Navigate to the enrollment dashboard. <br> 3. Click Download Certificate. | The system generates a presigned S3 URL for the PDF. The PDF is streamed to the student's browser for download. The downloaded file contains the student's full name, course name, completion date, and unique certificate number. | — | — |
 
 ---
 
-## 2. Non-Functional Test Cases
+## Non-Functional Test Cases
 
 ### NFT001 — Performance Test: API Response Time Under Concurrent Load
 
@@ -862,6 +646,3 @@ At step 3, if a certificate record already exists for this student and course co
 
 ---
 
----
-
-*End of Test and Use Case Document*
