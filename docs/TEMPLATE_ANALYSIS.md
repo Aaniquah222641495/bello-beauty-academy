@@ -34,6 +34,8 @@ GitHub Projects offers several pre-built templates to help teams manage software
 # 2. Selected Template Justification
 
 **Selected Template: Kanban**
+ 
+📋 [View the Kanban Board](https://github.com/users/Aaniquah222641495/projects/5)
 
 The Kanban template was the strongest fit for the Bello Beauty Academy Platform and was selected for the following reasons.
 
@@ -53,7 +55,10 @@ The Iterative Development template was not selected because the velocity trackin
 
 The screenshot below shows the GitHub project template selection screen with the available templates.
 
-![GitHub Project Template Selection](../screenshots/template_comparison.png)
+<img width="660" height="539" alt="Screenshot 2026-04-13 at 01 47 03" src="https://github.com/user-attachments/assets/1e2e663f-8822-4d9b-889d-6149a576cdb4" /><img width="664" height="544" alt="Screenshot 2026-04-13 at 01 47 12" src="https://github.com/user-attachments/assets/a11611ee-8b8f-4646-a367-e7da6f9bd630" />
+
+
+
 
 ---
 

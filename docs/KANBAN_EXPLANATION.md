@@ -17,6 +17,10 @@
 6. [Kanban Board Screenshot](#6-kanban-board-screenshot)
 
 ---
+ 
+📋 [View the Bello Beauty Academy Kanban Board](https://github.com/users/Aaniquah222641495/projects/5)
+ 
+---
 
 # 1. What is a Kanban Board
 
@@ -84,7 +88,8 @@ GitHub Projects does not enforce WIP limits automatically but the current count 
 
 The screenshot below shows the Bello Beauty Academy Platform Kanban board with all custom columns, linked issues, labels, task assignments, and tasks distributed across workflow stages.
 
-![Bello Beauty Academy Kanban Board](../screenshots/kanban_board.png)
+<img width="1437" height="900" alt="Screenshot 2026-04-13 at 01 46 00" src="https://github.com/user-attachments/assets/4735ab2c-86b0-4c23-8494-5d9be45e73f2" />
+<img width="1436" height="899" alt="Screenshot 2026-04-13 at 01 46 11" src="https://github.com/user-attachments/assets/e9c3c90f-6e08-43f9-b608-ebbad3168371" />
 
 ---
 
