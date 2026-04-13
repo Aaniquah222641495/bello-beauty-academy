@@ -1,8 +1,36 @@
 # Software Architecture Document : Bello Beauty Academy Platform
 
-**Document Version:** 1
+**Document Version:** 1.3
 **Date:** March 2026
 **Status:** Draft
+
+---
+
+## Project Title
+
+**Bello Beauty Academy Platform**
+
+*A professional web-based management system for the Bello Beauty Academy, offering certified training courses in lash artistry, brow techniques, nail technology, and makeup artistry.*
+
+---
+
+## Domain
+
+The Bello Beauty Academy Platform operates within the **Beauty Education and Professional Training** domain. Beauty academies are educational institutions focused exclusively on training aspiring beauty professionals. Unlike beauty salons or spas that deliver services to end customers, beauty academies provide structured certification programs covering lash artistry, brow techniques, nail technology, and makeup artistry. Students enroll in formal training programs, learn practical techniques under qualified trainers, and earn recognised industry certifications upon successful completion.
+
+The domain is characterised by a need to manage students, trainers, courses, class schedules, practical assessments, and certification records ,all of which require a purpose-built digital management platform to replace the manual and informal processes currently in use.
+
+---
+
+## Problem Statement
+
+The Bello Beauty Academy currently manages its training operations through a combination of manual processes, spreadsheets, and informal communication channels such as WhatsApp and phone calls. This approach results in inefficient student enrollment, uncoordinated class scheduling, incomplete progress records, manual certificate issuance, and a lack of operational visibility for management. The Bello Beauty Academy Platform is proposed as a web-based management system that will resolve these challenges by digitising and automating the core operations of the academy.
+
+---
+
+## Individual Scope
+
+The core features : student enrollment, course management, trainer management, class scheduling, progress tracking, payment confirmation, and certificate generation form a complete and cohesive system that addresses all the identified problems. Complex features such as online card payment processing and live virtual classes have been deliberately deferred to future releases and documented in the Future Scope section of the specification. The system is built using widely adopted technologies (React.js, Node.js, PostgreSQL) that are well documented and supported, making the implementation feasible within the project timeline.
 
 ---
 
@@ -10,14 +38,14 @@
 
 1. [Architecture Overview](#1-architecture-overview)
 2. [Architecture Style](#2-architecture-style)
-3. [Software Design Principles](#3-software-design-principles)
-4. [System Components](#4-system-components)
-5. [C4 Level 1 — System Context Diagram](#5-c4-level-1--system-context-diagram)
-6. [C4 Level 2 — Container Diagram](#6-c4-level-2--container-diagram)
-7. [C4 Level 3 — Component Diagram](#7-c4-level-3--component-diagram)
-8. [Data Flow Description](#8-data-flow-description)
-9. [Technology Stack](#9-technology-stack)
-10. [Database Schema Overview](#10-database-schema-overview)
+3. [System Components](#3-system-components)
+4. [C4 Level 1 — System Context Diagram](#4-c4-level-1--system-context-diagram)
+5. [C4 Level 2 — Container Diagram](#5-c4-level-2--container-diagram)
+6. [C4 Level 3 — Component Diagram](#6-c4-level-3--component-diagram)
+7. [C4 Level 4 — Dynamic Diagram](#7-c4-level-4--dynamic-diagram)
+8. [C4 Level 5 — Deployment Diagram](#8-c4-level-5--deployment-diagram)
+9. [Data Flow Description](#9-data-flow-description)
+10. [Technology Stack](#10-technology-stack)
 
 ---
 
@@ -41,40 +69,17 @@ The system adopts a **modular monolith backend** architecture for this first ver
 
 **Architecture pattern:** Layered MVC (Model-View-Controller) with service layer
 **API style:** RESTful HTTP API
-**Frontend pattern:** Single Page Application (SPA)
+
 
 ---
 
-## 3. Software Design Principles
+## 3. System Components
 
-The Bello Beauty Academy Platform is designed in accordance with established software engineering principles to ensure a maintainable, scalable, and robust system.
-
-### 3.1 Core Design Principles
-
-**Separation of Concerns** — The system is divided into clearly distinct layers: presentation (React frontend), business logic (Node.js API), and data persistence (PostgreSQL). Each layer is independently maintainable.
-
-**High Cohesion, Low Coupling** — Each internal module is tightly focused on its own domain. Modules communicate through well-defined internal interfaces, minimising interdependency and making individual components easier to test and replace.
-
-**Role-Based Access Control (RBAC)** — Security concerns are separated from business logic. The Authentication Component enforces access rules at the API boundary, ensuring each user role only accesses the features relevant to them.
-
-### 3.2 Agile Principles in Architectural Design
-
-The architecture has been approached using agile thinking to ensure flexibility and responsiveness to changing requirements:
-
-- **Incremental design** — The system is designed in clearly scoped increments. Core features (enrollment, scheduling, progress tracking) form the first release, with enhancements such as online payments planned as future iterations.
-- **Evolutionary architecture** — The modular monolith is deliberately structured so that individual modules can be extracted into independent microservices as the system grows, without requiring a full redesign.
-- **Continuous feedback alignment** — The separation of the frontend and backend allows the UI to be iterated independently based on user feedback, without changes to the underlying API.
-- **Adaptive scope** — The Future Scope section of the specification captures features that have been identified and designed but deliberately deferred, reflecting the agile principle of managing scope incrementally rather than committing to everything upfront.
-
----
-
-## 4. System Components
-
-### 3.1 Frontend Web Application
+### 4.1 Frontend Web Application
 
 A **React.js Single Page Application (SPA)** that provides the user interface for all three user roles — Students, Trainers, and Administrators. The frontend communicates with the backend exclusively via the REST API over HTTPS. It renders role-specific dashboards and views based on the authenticated user's role, including a proof of payment upload form and a payment status view.
 
-### 3.2 Backend REST API
+### 4.2 Backend REST API
 
 A **Node.js + Express.js** application serving as the core of the system. All business logic is organised into the following internal modules:
 
@@ -87,289 +92,467 @@ A **Node.js + Express.js** application serving as the core of the system. All bu
 - **Certificate Generation Module** — PDF certificate generation and issuance
 - **Notification Module** — transactional email dispatch
 
-### 3.3 Database
+### 4.3 Database
 
 A **PostgreSQL** relational database persisting all system data: users, courses, enrollments, payments, sessions, attendance, assessments, certificates, and course materials.
 
-### 3.4 Authentication Service
+### 4.4 Authentication Service
 
 A **JWT-based authentication service** embedded in the backend. Handles registration, login, password hashing (bcrypt), token issuance, token validation, and role-based access enforcement on every protected API endpoint.
 
-### 3.5 Payment Management Service
+### 4.5 Payment Management Service
 
-A dedicated internal service managing all payment-related operations. The current version supports the following payment flow:
+A dedicated internal service managing all payment-related operations. The student uploads a proof of payment document after making payment. The administrator reviews it on the payment dashboard and confirms or rejects it. On confirmation, the enrollment is automatically activated and the student receives an email notification.
 
-**Cash / EFT (Admin-Confirmed)**
-The student uploads a proof of payment document (bank slip or EFT screenshot) through the platform after making payment. The administrator reviews the uploaded document on the payment dashboard and confirms or rejects it. On confirmation, the enrollment is automatically activated and the student receives an email notification.
+### 4.6 Certificate Generation Service
 
-> **Planned Future Enhancement:** Online card payment via the PayFast payment gateway is planned for a future release. See [FUTURE_ENHANCEMENTS.md](./FUTURE_ENHANCEMENTS.md) for the full design of this feature.
+A **PDF generation service** using Puppeteer or PDFKit. Generates branded PDF certificates containing the student's name, course name, completion date, and a unique certificate number.
 
-In both the current and future flows, enrollment status moves from `pending` to `active` only once payment is confirmed.
+### 4.7 Notification Service
 
-### 3.6 Certificate Generation Service
-
-A **PDF generation service** using Puppeteer or PDFKit. Generates branded PDF certificates containing the student's name, course name, completion date, and a unique certificate number. PDFs are stored in file storage and made available for student download.
-
-### 3.7 Notification Service
-
-An **email notification service** using NodeMailer and SendGrid. Dispatches:
-- Enrollment received confirmation
-- Payment confirmation notification
-- Payment rejection notice prompting POP resubmission
-- Schedule update alerts to students and trainers
-- Certificate ready notification
+An **email notification service** using NodeMailer and SendGrid. Dispatches enrollment confirmations, payment notifications, schedule updates, and certificate ready alerts.
 
 ---
 
-## 5. C4 Level 1 — System Context Diagram
+## 4. C4 Level 1 — System Context Diagram
+
+This diagram shows the Bello Beauty Academy Platform at the highest level — the actors who interact with it and the external systems it depends on.
 
 ```mermaid
 C4Context
-    title System Context Diagram — Bello Beauty Academy Platform
+    title System Context — Bello Beauty Academy Platform
 
-    Enterprise_Boundary(academy, "Bello Beauty Academy") {
+    Person(student, "Student", "Enrolls in courses, uploads proof of payment, tracks progress, and downloads certificates.")
+    Person(trainer, "Trainer", "Delivers training sessions, records attendance, and submits student progress.")
+    Person(admin, "Administrator", "Manages courses, enrollments, payments, and system reports.")
 
-        Person(student, "Student", "Browses courses, enrolls, uploads proof of payment, tracks progress, and downloads certificates.")
-        Person(trainer, "Trainer", "Delivers training sessions, records attendance, and submits student progress.")
-        Person(admin, "Administrator", "Manages courses, trainers, enrollments, confirms payments, and generates reports.")
+    System(platform, "Bello Beauty Academy Platform", "Web-based platform for course management, enrollments, payments, scheduling, and certificate generation.")
 
-        System(platform, "Bello Beauty Academy Platform", "Web-based training management system handling courses, enrollments, cash/EFT payment tracking, scheduling, progress tracking, and certificate generation.")
-    }
+    System_Ext(email, "SendGrid Email Service", "Handles transactional email notifications.")
+    System_Ext(storage, "AWS S3 Storage", "Stores proof of payment uploads and generated certificate PDFs.")
 
-    System_Ext(emailService, "SendGrid Email Service", "Transactional email delivery for enrollment, payment, schedule, and certificate notifications.")
-    System_Ext(fileStorage, "File Storage Service", "Cloud storage (AWS S3) for proof of payment uploads and generated certificate PDFs.")
+    Rel(student, platform, "Uses", "HTTPS")
+    Rel(trainer, platform, "Uses", "HTTPS")
+    Rel(admin, platform, "Administers", "HTTPS")
+    Rel(platform, email, "Sends emails", "SMTP")
+    Rel(platform, storage, "Stores files", "HTTPS")
 
-    Rel(student, platform, "Enrolls, uploads proof of payment, views schedule, tracks progress, downloads certificates", "HTTPS")
-    Rel(trainer, platform, "Views sessions, records attendance, uploads materials, submits progress", "HTTPS")
-    Rel(admin, platform, "Manages courses, trainers, enrollments, confirms payments, generates reports", "HTTPS")
-
-    Rel(platform, emailService, "Sends enrollment, payment, and certificate notifications", "SMTP/HTTPS")
-    Rel(platform, fileStorage, "Stores and retrieves proof of payment files and certificate PDFs", "HTTPS")
-    Rel(emailService, student, "Delivers email notifications to")
-    Rel(emailService, trainer, "Delivers email notifications to")
+    UpdateRelStyle(student, platform, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(trainer, platform, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(admin, platform, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(platform, email, $textColor="#e84d1a", $lineColor="#e84d1a")
+    UpdateRelStyle(platform, storage, $textColor="#e84d1a", $lineColor="#e84d1a")
 
     UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
+**Relationship Legend**
+
+| Colour | From | To | Relationship | Protocol |
+|--------|------|----|-------------|----------|
+| 🔵 Blue | Student | Bello Beauty Academy Platform | Uses the platform to enroll, track progress, and download certificates | HTTPS |
+| 🔵 Blue | Trainer | Bello Beauty Academy Platform | Uses the platform to manage sessions and record student progress | HTTPS |
+| 🔵 Blue | Administrator | Bello Beauty Academy Platform | Administers courses, enrollments, payments, and reports | HTTPS |
+| 🔴 Red | Bello Beauty Academy Platform | SendGrid Email Service | Sends enrollment, payment, and certificate email notifications | SMTP/HTTPS |
+| 🔴 Red | Bello Beauty Academy Platform | AWS S3 Storage | Stores proof of payment uploads and generated certificate PDFs | HTTPS |
+
 ---
 
-## 6. C4 Level 2 — Container Diagram
+## 5. C4 Level 2 — Container Diagram
+
+This diagram zooms into the Bello Beauty Academy Platform to show the applications and data stores that exist inside the software system boundary, their technology choices, and how they communicate with each other and with the external systems shown in the Context diagram.
 
 ```mermaid
 C4Container
     title Container Diagram — Bello Beauty Academy Platform
 
-    Person(student, "Student", "Accesses the platform via web browser")
-    Person(trainer, "Trainer", "Accesses the platform via web browser")
-    Person(admin, "Administrator", "Manages the academy via web browser")
+    Person(student, "Student", "Uses the platform via web browser.")
+    Person(trainer, "Trainer", "Uses the platform via web browser.")
+    Person(admin, "Administrator", "Manages the academy via web browser.")
 
-    System_Ext(emailService, "SendGrid Email Service", "External transactional email delivery")
-    System_Ext(fileStorage, "File Storage", "AWS S3 cloud storage for uploaded files and PDFs")
-
-    Container_Boundary(platform, "Bello Beauty Academy Platform") {
-
-        Container(webApp, "Web Frontend", "React.js SPA", "Provides role-specific dashboards. Includes proof of payment upload form and payment status views for students, and a payment confirmation dashboard for administrators.")
-
-        Container(api, "Backend REST API", "Node.js + Express.js", "Handles all business logic: enrollment, cash/EFT payment tracking, scheduling, progress tracking, reporting, and certificate management.")
-
-        ContainerDb(db, "Primary Database", "PostgreSQL", "Stores users, courses, enrollments, payment records, sessions, attendance, assessments, and certificate metadata.")
-
-        Container(authService, "Authentication Service", "JWT + bcrypt", "User registration, login, password hashing, JWT issuance, and role-based access control.")
-
-        Container(paymentService, "Payment Management Service", "Node.js Service", "Accepts proof of payment file uploads from students. Supports administrator manual confirmation or rejection of cash and EFT payments. Updates enrollment status on payment confirmation.")
-
-        Container(certService, "Certificate Generation Service", "Node.js + Puppeteer/PDFKit", "Generates branded PDF certificates on course completion.")
-
-        Container(notifService, "Notification Service", "Node.js + NodeMailer", "Dispatches transactional emails for enrollment confirmations, payment updates, schedule changes, and certificate issuance.")
+    Container_Boundary(c1, "Bello Beauty Academy Platform") {
+        Container(webApp, "Web Application", "React.js SPA", "Delivers role-specific dashboards to Students, Trainers, and Administrators.")
+        Container(api, "API Application", "Node.js, Express.js", "Handles all business logic. Exposes RESTful endpoints to the frontend.")
+        ContainerDb(db, "Database", "PostgreSQL", "Stores users, courses, enrollments, payments, sessions, and certificates.")
+        Container(authSvc, "Authentication Service", "JWT, bcrypt", "Manages login, registration, and role-based access control.")
+        Container(paymentSvc, "Payment Service", "Node.js", "Handles proof of payment uploads and admin confirmation.")
+        Container(certSvc, "Certificate Service", "Puppeteer, PDFKit", "Generates PDF certificates on course completion.")
+        Container(notifSvc, "Notification Service", "NodeMailer", "Dispatches transactional email notifications.")
     }
+
+    System_Ext(email, "SendGrid", "External email delivery.")
+    System_Ext(storage, "AWS S3", "File storage for uploads and PDFs.")
 
     Rel(student, webApp, "Uses", "HTTPS")
     Rel(trainer, webApp, "Uses", "HTTPS")
     Rel(admin, webApp, "Uses", "HTTPS")
+    Rel(webApp, api, "API calls", "JSON/HTTPS")
+    Rel(api, db, "Read/write", "SQL")
+    Rel(api, authSvc, "Authenticates", "JWT")
+    Rel(api, paymentSvc, "Payments", "Internal")
+    Rel(api, certSvc, "Certificates", "Internal")
+    Rel(api, notifSvc, "Notifications", "Internal")
+    Rel(notifSvc, email, "Sends", "SMTP")
+    Rel(paymentSvc, storage, "Stores", "HTTPS")
 
-    Rel(webApp, api, "Makes API calls to", "JSON/HTTPS")
-    Rel(api, authService, "Validates user identity via", "Internal/JWT")
-    Rel(api, db, "Reads from and writes to", "SQL/TCP")
-    Rel(api, paymentService, "Delegates all payment operations to", "Internal")
-    Rel(api, certService, "Requests certificate generation from", "Internal")
-    Rel(api, notifService, "Triggers email notifications via", "Internal")
-    Rel(paymentService, db, "Reads and writes payment records", "SQL/TCP")
-    Rel(paymentService, fileStorage, "Stores proof of payment uploads", "HTTPS")
-    Rel(certService, fileStorage, "Stores generated certificate PDFs", "HTTPS")
-    Rel(notifService, emailService, "Sends emails using", "SMTP/HTTPS")
+    UpdateRelStyle(student, webApp, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(trainer, webApp, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(admin, webApp, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(webApp, api, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(api, db, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(api, authSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(api, paymentSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(api, certSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(api, notifSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(notifSvc, email, $textColor="#e84d1a", $lineColor="#e84d1a")
+    UpdateRelStyle(paymentSvc, storage, $textColor="#e84d1a", $lineColor="#e84d1a")
 
     UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
+**Relationship Legend**
+
+| Colour | From | To | Relationship | Protocol |
+|--------|------|----|-------------|----------|
+| 🔵 Blue | Student / Trainer / Admin | Web Application | Accesses role-specific dashboard via web browser | HTTPS |
+| 🟢 Green | Web Application | API Application | Sends all requests to the backend REST API | JSON/HTTPS |
+| 🟢 Green | API Application | Database | Reads and writes all platform data | SQL |
+| 🟠 Orange | API Application | Authentication Service | Validates user identity and enforces role-based access | JWT |
+| 🟠 Orange | API Application | Payment Service | Delegates all proof of payment and confirmation operations | Internal |
+| 🟠 Orange | API Application | Certificate Service | Requests branded PDF certificate generation | Internal |
+| 🟠 Orange | API Application | Notification Service | Triggers transactional email dispatch | Internal |
+| 🔴 Red | Notification Service | SendGrid | Sends enrollment, payment, and certificate emails | SMTP/HTTPS |
+| 🔴 Red | Payment Service | AWS S3 | Stores uploaded proof of payment files | HTTPS |
+
 ---
 
-## 7. C4 Level 3 — Component Diagram
+## 6. C4 Level 3 — Component Diagram
+
+This diagram zooms into the API Application container and shows the components that reside inside it. The same people, software systems, and other containers from the Container diagram are repeated here to provide continuity.
 
 ```mermaid
 C4Component
-    title Component Diagram — Backend REST API (Bello Beauty Academy Platform)
+    title Component Diagram — API Application
 
-    Container(webApp, "Web Frontend", "React.js SPA", "Sends HTTP requests to the Backend API")
-    ContainerDb(db, "PostgreSQL Database", "Relational Database", "Stores all system data")
-    Container(emailSvc, "Notification Service", "NodeMailer + SendGrid", "Dispatches transactional emails")
-    Container(certSvc, "Certificate Generation Service", "Puppeteer/PDFKit", "Generates PDF certificates")
-    Container(fileSvc, "File Storage", "AWS S3", "Stores uploaded files and PDFs")
+    Person(student, "Student", "Uses the platform via web browser.")
+    Person(admin, "Administrator", "Manages the academy via web browser.")
 
-    Container_Boundary(api, "Backend REST API") {
+    Container(webApp, "Web Application", "React.js SPA", "Sends HTTP requests to the API.")
+    ContainerDb(db, "Database", "PostgreSQL", "Stores all system data.")
+    Container(notifSvc, "Notification Service", "NodeMailer", "Sends transactional emails.")
+    Container(certSvc, "Certificate Service", "Puppeteer/PDFKit", "Generates PDF certificates.")
+    Container(storage, "AWS S3", "File Storage", "Stores uploaded files and PDFs.")
 
-        Component(authComp, "Authentication Component", "JWT Middleware", "Validates JWT tokens on all protected routes. Enforces role-based access control for Students, Trainers, and Admins.")
-
-        Component(userMgmt, "User Management Component", "Express Router + Service", "Handles student and trainer registration, login, profile management, and role assignment.")
-
-        Component(courseMgmt, "Course Management Component", "Express Router + Service", "Manages creation, editing, and retrieval of courses and course categories.")
-
-        Component(enrollMgmt, "Student Enrollment Component", "Express Router + Service", "Processes enrollment applications. Manages enrollment status lifecycle: pending → active → completed. Blocks course access until payment is confirmed.")
-
-        Component(paymentComp, "Payment Management Component", "Express Router + Service", "Accepts proof of payment file uploads from students. Allows administrators to confirm or reject cash and EFT payments. Updates payment status and triggers enrollment activation on confirmation.")
-
-        Component(schedMgmt, "Schedule Management Component", "Express Router + Service", "Creates and manages training session schedules with trainer assignments, dates, times, and venues.")
-
-        Component(progressTracker, "Progress Tracking Component", "Express Router + Service", "Records student attendance per session and stores competency assessment results submitted by trainers.")
-
-        Component(certComp, "Certificate Management Component", "Express Router + Service", "Verifies course completion, triggers PDF generation, stores certificate metadata, and serves download links to students.")
-
-        Component(reportComp, "Reporting Component", "Express Router + Service", "Aggregates enrollment, payment, completion, and trainer data into operational admin reports.")
-
-        Rel(authComp, userMgmt, "Validates credentials via")
-        Rel(enrollMgmt, courseMgmt, "Checks course availability via")
-        Rel(enrollMgmt, paymentComp, "Creates payment record on enrollment")
-        Rel(paymentComp, enrollMgmt, "Activates enrollment on payment confirmed")
-        Rel(progressTracker, enrollMgmt, "Verifies active enrollment via")
-        Rel(certComp, progressTracker, "Checks course completion status via")
-        Rel(certComp, certSvc, "Requests PDF generation from")
-        Rel(enrollMgmt, emailSvc, "Triggers enrollment received email")
-        Rel(paymentComp, emailSvc, "Triggers payment confirmed or rejected email")
-        Rel(certComp, emailSvc, "Triggers certificate ready email")
-        Rel(paymentComp, fileSvc, "Stores proof of payment uploads")
-        Rel(certComp, fileSvc, "Stores generated certificate PDFs")
+    Container_Boundary(c1, "API Application") {
+        Component(auth, "Authentication Component", "JWT Middleware", "Validates tokens and enforces role-based access control.")
+        Component(users, "User Management Component", "Express Router", "Handles registration, login, and user profiles.")
+        Component(courses, "Course Management Component", "Express Router", "Creates and manages courses and categories.")
+        Component(enroll, "Enrollment Component", "Express Router", "Manages enrollment lifecycle from pending to active to completed.")
+        Component(payment, "Payment Component", "Express Router", "Handles proof of payment uploads and admin payment confirmation.")
+        Component(schedule, "Schedule Component", "Express Router", "Manages training sessions and trainer assignments.")
+        Component(progress, "Progress Component", "Express Router", "Records student attendance and assessment results.")
+        Component(cert, "Certificate Component", "Express Router", "Verifies course completion and triggers certificate generation.")
+        Component(reports, "Reporting Component", "Express Router", "Generates operational reports for administrators.")
     }
 
-    Rel(webApp, authComp, "Sends login and registration requests", "JSON/HTTPS")
-    Rel(webApp, courseMgmt, "Requests course data", "JSON/HTTPS")
-    Rel(webApp, enrollMgmt, "Submits and retrieves enrollment data", "JSON/HTTPS")
-    Rel(webApp, paymentComp, "Uploads proof of payment, checks payment status", "JSON/HTTPS")
-    Rel(webApp, schedMgmt, "Retrieves session schedules", "JSON/HTTPS")
-    Rel(webApp, progressTracker, "Submits and retrieves progress data", "JSON/HTTPS")
-    Rel(webApp, certComp, "Requests certificate generation and download", "JSON/HTTPS")
-    Rel(webApp, reportComp, "Requests admin reports", "JSON/HTTPS")
+    Rel(student, webApp, "Uses", "HTTPS")
+    Rel(admin, webApp, "Uses", "HTTPS")
+    Rel(webApp, auth, "Login", "HTTPS")
+    Rel(webApp, enroll, "Enroll", "HTTPS")
+    Rel(webApp, payment, "Pay", "HTTPS")
+    Rel(webApp, cert, "Certificates", "HTTPS")
+    Rel(auth, users, "Validates")
+    Rel(enroll, courses, "Checks")
+    Rel(enroll, payment, "Creates")
+    Rel(payment, enroll, "Activates")
+    Rel(cert, progress, "Verifies")
+    Rel(enroll, db, "Read/write", "SQL")
+    Rel(payment, db, "Read/write", "SQL")
+    Rel(cert, db, "Read/write", "SQL")
+    Rel(payment, notifSvc, "Email")
+    Rel(cert, certSvc, "PDF")
+    Rel(payment, storage, "Stores", "HTTPS")
 
-    Rel(userMgmt, db, "Reads and writes user records", "SQL")
-    Rel(courseMgmt, db, "Reads and writes course records", "SQL")
-    Rel(enrollMgmt, db, "Reads and writes enrollment records", "SQL")
-    Rel(paymentComp, db, "Reads and writes payment records", "SQL")
-    Rel(schedMgmt, db, "Reads and writes session records", "SQL")
-    Rel(progressTracker, db, "Reads and writes attendance and assessment records", "SQL")
-    Rel(certComp, db, "Reads and writes certificate records", "SQL")
-    Rel(reportComp, db, "Reads aggregated data for reports", "SQL")
+    UpdateRelStyle(student, webApp, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(admin, webApp, $textColor="#1a73e8", $lineColor="#1a73e8")
+    UpdateRelStyle(webApp, auth, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(webApp, enroll, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(webApp, payment, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(webApp, cert, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(auth, users, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(enroll, courses, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(enroll, payment, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(payment, enroll, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(cert, progress, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(enroll, db, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(payment, db, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(cert, db, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(payment, notifSvc, $textColor="#e84d1a", $lineColor="#e84d1a")
+    UpdateRelStyle(cert, certSvc, $textColor="#e84d1a", $lineColor="#e84d1a")
+    UpdateRelStyle(payment, storage, $textColor="#e84d1a", $lineColor="#e84d1a")
 
     UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="2")
 ```
 
----
+**Relationship Legend**
 
-## 8. Data Flow Description
-
-### 7.1 Student Enrollment and Payment Flow (Cash / EFT)
-
-```
-1. Student submits enrollment
-   → POST /api/enrollments
-   → Authentication Component: validates JWT
-   → Enrollment Component: creates enrollment (status = "pending")
-   → Payment Component: creates payment record (method = "cash/eft", status = "pending")
-   → Notification Service → Email to Student:
-     "Enrollment received. Please make payment and upload your proof of payment."
-
-2. Student uploads proof of payment (bank slip or EFT screenshot)
-   → POST /api/payments/{enrollmentId}/upload
-   → Payment Component: saves file to AWS S3, updates payment record with file path
-   → Notification Service → Email to Admin:
-     "New proof of payment uploaded. Please review."
-
-3. Admin opens Payment Dashboard
-   → GET /api/payments?status=pending
-   → Payment Component: returns list of pending payments with POP download links
-   → Admin clicks "View POP" → file retrieved from S3 for review
-
-4a. Admin confirms payment
-   → POST /api/payments/{paymentId}/confirm
-   → Payment Component: updates payment status = "confirmed",
-     records confirmed_by and confirmed_at
-   → Enrollment Component: updates enrollment status = "active"
-   → Notification Service → Email to Student:
-     "Payment confirmed. Your enrollment is now active."
-
-4b. Admin rejects payment
-   → POST /api/payments/{paymentId}/reject
-   → Payment Component: updates payment status = "rejected"
-   → Notification Service → Email to Student:
-     "Payment could not be verified. Please resubmit your proof of payment."
-```
-
-### 7.2 Admin Payment Dashboard Flow
-
-```
-Admin → Payment Dashboard
-→ GET /api/payments?status=pending    → cash/EFT payments awaiting review
-→ GET /api/payments?status=confirmed  → all confirmed payments
-→ GET /api/payments/{id}/proof        → retrieve uploaded POP file from S3
-→ POST /api/payments/{id}/confirm     → confirm → enrollment activated
-→ POST /api/payments/{id}/reject      → reject → student notified to resubmit
-```
-
-### 7.3 Certificate Generation Flow
-
-```
-1. Admin → POST /api/certificates/{studentId}/{courseId}
-   → Authentication Component: validates admin JWT
-   → Certificate Component → Progress Tracker: verifies course completion
-   → Certificate Generation Service: generates branded PDF
-   → File Storage (S3): stores PDF
-   → Database: stores certificate metadata and file path
-   → Notification Service → Email to Student: "Your certificate is ready to download."
-
-2. Student → GET /api/certificates/download/{certId}
-   → Certificate Component: retrieves PDF from S3
-   → PDF streamed to student browser for download
-```
-
-### 7.4 Payment Status Lifecycle
-
-```
-Student Enrolls
-       │
-       ▼
- Payment: PENDING
- (Student uploads proof of payment)
-       │
-       ▼
- Admin Reviews POP
-       │
-   ┌───┴───┐
-   ▼       ▼
-CONFIRMED  REJECTED ──► Student notified to resubmit
-   │
-   ▼
-Enrollment: ACTIVE
-   │
-   ▼
-Student attends training sessions
-   │
-   ▼
-Course Completed
-   │
-   ▼
-Certificate Issued
-```
+| Colour | From | To | Relationship | Protocol |
+|--------|------|----|-------------|----------|
+| 🔵 Blue | Student / Admin | Web Application | Accesses the platform via web browser | HTTPS |
+| 🟢 Green | Web Application | Authentication Component | Sends login and registration requests | JSON/HTTPS |
+| 🟢 Green | Web Application | Enrollment Component | Submits and retrieves enrollment data | JSON/HTTPS |
+| 🟢 Green | Web Application | Payment Component | Uploads proof of payment and checks status | JSON/HTTPS |
+| 🟢 Green | Web Application | Certificate Component | Requests certificate generation and download | JSON/HTTPS |
+| 🟢 Green | Enrollment / Payment / Certificate | Database | Reads and writes enrollment, payment, and certificate records | SQL |
+| 🟠 Orange | Authentication Component | User Management Component | Validates user credentials for login | Internal |
+| 🟠 Orange | Enrollment Component | Course Management Component | Checks course availability before enrolling | Internal |
+| 🟠 Orange | Enrollment Component | Payment Component | Creates a payment record on enrollment | Internal |
+| 🟠 Orange | Payment Component | Enrollment Component | Activates enrollment once payment is confirmed | Internal |
+| 🟠 Orange | Certificate Component | Progress Component | Verifies student has completed the course | Internal |
+| 🔴 Red | Payment Component | Notification Service | Triggers payment confirmation email to student | Internal |
+| 🔴 Red | Certificate Component | Certificate Service | Requests branded PDF certificate generation | Internal |
+| 🔴 Red | Payment Component | AWS S3 | Stores the uploaded proof of payment file | HTTPS |
 
 ---
 
-## 9. Technology Stack
+## 7. C4 Level 4 — Dynamic Diagram
+
+This diagram shows the sequence of interactions between containers when a student submits an enrollment and uploads a proof of payment.
+
+```mermaid
+flowchart TD
+    A([Student]) -->|1. Submit enrollment| B[Web Application]
+    B -->|2. POST /api/enrollments| C[Enrollment Component]
+    C -->|3. Save enrollment: pending| D[(Database)]
+    C -->|4. Create payment record| E[Payment Component]
+    E -->|5. Save payment: pending| D
+    C -->|6. Send confirmation email| F[Notification Service]
+    F -->|7. Email: please upload proof| A
+
+    A -->|8. Upload proof of payment| B
+    B -->|9. POST /api/payments/upload| E
+    E -->|10. Store file| G[AWS S3]
+    E -->|11. Notify admin| F
+    F -->|12. Email: new POP uploaded| H([Admin])
+
+    H -->|13. Review POP| B
+    B -->|14. GET /api/payments| E
+
+    E -->|15a. Confirm payment| D
+    E -->|15b. Activate enrollment| C
+    E -->|16. Send confirmation| F
+    F -->|17. Email: enrollment active| A
+
+    style A fill:#4A90D9,color:#fff
+    style H fill:#4A90D9,color:#fff
+    style B fill:#1168BD,color:#fff
+    style C fill:#1168BD,color:#fff
+    style E fill:#1168BD,color:#fff
+    style F fill:#1168BD,color:#fff
+    style D fill:#336791,color:#fff
+    style G fill:#FF9900,color:#fff
+```
+
+**Relationship Legend**
+
+| Colour | Step | From | To | Relationship |
+|--------|------|------|----|-------------|
+| 🔵 Blue | 1–2 | Student → Web Application → Enrollment Component | Submits enrollment form |
+| 🟢 Green | 3, 5 | Enrollment / Payment Component | Database | Saves enrollment and payment records with status pending |
+| 🟠 Orange | 4 | Enrollment Component | Payment Component | Creates associated payment record |
+| 🔴 Red | 6–7 | Enrollment Component → Notification Service | Sends enrollment confirmation email to student |
+| 🔵 Blue | 8–9 | Student → Web Application → Payment Component | Uploads proof of payment |
+| 🟠 Orange | 10 | Payment Component | AWS S3 | Stores the uploaded proof of payment file |
+| 🔴 Red | 11–12 | Payment Component → Notification Service | Notifies admin that proof of payment is ready |
+| 🔵 Blue | 13–14 | Admin → Web Application → Payment Component | Admin reviews pending payments |
+| 🟢 Green | 15a–15b | Payment Component | Database / Enrollment Component | Confirms payment and activates enrollment |
+| 🔴 Red | 16–17 | Payment Component → Notification Service | Sends payment confirmation email to student |
+
+---
+
+## 8. C4 Level 5 — Deployment Diagram
+
+This diagram shows how the Bello Beauty Academy Platform is deployed across infrastructure environments, including the hosting nodes, containers, and external services.
+
+```mermaid
+C4Deployment
+    title Deployment Diagram — Bello Beauty Academy Platform
+
+    Deployment_Node(student_device, "Student / Trainer / Admin Device", "Web Browser") {
+        Container(webApp, "Web Application", "React.js SPA", "Runs in the browser.")
+    }
+
+    Deployment_Node(cloud, "Cloud Hosting", "Docker + VPS") {
+        Deployment_Node(app_server, "Application Server", "Node.js Runtime") {
+            Container(api, "API Application", "Node.js + Express.js", "Handles all business logic.")
+            Container(authSvc, "Authentication Service", "JWT + bcrypt", "Manages login and access control.")
+            Container(paymentSvc, "Payment Service", "Node.js", "Handles proof of payment uploads.")
+            Container(certSvc, "Certificate Service", "Puppeteer/PDFKit", "Generates PDF certificates.")
+            Container(notifSvc, "Notification Service", "NodeMailer", "Dispatches email notifications.")
+        }
+        Deployment_Node(db_server, "Database Server", "PostgreSQL") {
+            ContainerDb(db, "Database", "PostgreSQL", "Stores all platform data.")
+        }
+    }
+
+    Deployment_Node(aws, "Amazon Web Services", "Cloud") {
+        Container(storage, "File Storage", "AWS S3", "Stores proof of payment and certificate PDFs.")
+    }
+
+    Deployment_Node(sendgrid, "SendGrid", "Email Platform") {
+        Container(email, "Email Service", "SendGrid API", "Delivers transactional emails.")
+    }
+
+    Rel(webApp, api, " ", "JSON/HTTPS")
+    Rel(api, db, " ", "SQL")
+    Rel(api, authSvc, " ")
+    Rel(api, paymentSvc, " ")
+    Rel(api, certSvc, " ")
+    Rel(api, notifSvc, " ")
+    Rel(paymentSvc, storage, " ", "HTTPS")
+    Rel(certSvc, storage, " ", "HTTPS")
+    Rel(notifSvc, email, " ", "SMTP")
+
+    UpdateRelStyle(webApp, api, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(api, db, $textColor="#34a853", $lineColor="#34a853")
+    UpdateRelStyle(api, authSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(api, paymentSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(api, certSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(api, notifSvc, $textColor="#f4a800", $lineColor="#f4a800")
+    UpdateRelStyle(paymentSvc, storage, $textColor="#e84d1a", $lineColor="#e84d1a")
+    UpdateRelStyle(certSvc, storage, $textColor="#e84d1a", $lineColor="#e84d1a")
+    UpdateRelStyle(notifSvc, email, $textColor="#e84d1a", $lineColor="#e84d1a")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+```
+
+**Relationship Legend**
+
+| Colour | From | To | Relationship | Protocol |
+|--------|------|----|-------------|----------|
+| 🟢 Green | Web Application | API Application | Sends all user requests to the backend API | JSON/HTTPS |
+| 🟢 Green | API Application | Database | Reads and writes all platform data | SQL |
+| 🟠 Orange | API Application | Authentication Service | Validates tokens and enforces role-based access control | Internal |
+| 🟠 Orange | API Application | Payment Service | Delegates proof of payment and confirmation operations | Internal |
+| 🟠 Orange | API Application | Certificate Service | Requests branded PDF certificate generation | Internal |
+| 🟠 Orange | API Application | Notification Service | Triggers transactional email notifications | Internal |
+| 🔴 Red | Payment Service | AWS S3 | Stores uploaded proof of payment files | HTTPS |
+| 🔴 Red | Certificate Service | AWS S3 | Stores generated certificate PDF files | HTTPS |
+| 🔴 Red | Notification Service | SendGrid Email Service | Delivers enrollment, payment, and certificate emails | SMTP |
+
+---
+
+## 9. Data Flow Description
+
+### 9.1 Student Enrollment and Payment Flow (Cash / EFT)
+
+```mermaid
+sequenceDiagram
+    actor Student
+    participant WebApp as Web Application
+    participant Enroll as Enrollment Component
+    participant Payment as Payment Component
+    participant DB as Database
+    participant S3 as AWS S3
+    participant Email as Notification Service
+    actor Admin
+
+    Student->>WebApp: Submit enrollment
+    WebApp->>Enroll: POST /api/enrollments
+    Enroll->>DB: Save enrollment (status=pending)
+    Enroll->>Payment: Create payment record
+    Payment->>DB: Save payment (status=pending)
+    Enroll->>Email: Send confirmation email
+    Email-->>Student: Enrollment received — please make payment
+
+    Student->>WebApp: Upload proof of payment
+    WebApp->>Payment: POST /api/payments/upload
+    Payment->>S3: Store POP file
+    Payment->>Email: Notify admin
+    Email-->>Admin: New proof of payment uploaded
+
+    Admin->>WebApp: Open payment dashboard
+    WebApp->>Payment: GET /api/payments?status=pending
+    Payment-->>Admin: List of pending payments
+
+    alt Admin confirms payment
+        Admin->>Payment: POST /api/payments/confirm
+        Payment->>DB: Update payment status=confirmed
+        Payment->>Enroll: Activate enrollment
+        Enroll->>DB: Update enrollment status=active
+        Payment->>Email: Send confirmation
+        Email-->>Student: Payment confirmed — enrollment is active
+    else Admin rejects payment
+        Admin->>Payment: POST /api/payments/reject
+        Payment->>DB: Update payment status=rejected
+        Payment->>Email: Send rejection notice
+        Email-->>Student: Please resubmit your proof of payment
+    end
+```
+
+---
+
+### 9.2 Certificate Generation Flow
+
+```mermaid
+sequenceDiagram
+    actor Admin
+    actor Student
+    participant WebApp as Web Application
+    participant Cert as Certificate Component
+    participant Progress as Progress Component
+    participant CertSvc as Certificate Service
+    participant DB as Database
+    participant S3 as AWS S3
+    participant Email as Notification Service
+
+    Admin->>WebApp: Trigger certificate generation
+    WebApp->>Cert: POST /api/certificates/{studentId}/{courseId}
+    Cert->>Progress: Verify course completion
+    Progress-->>Cert: Completion confirmed
+
+    Cert->>CertSvc: Generate branded PDF
+    CertSvc-->>Cert: PDF generated
+
+    Cert->>S3: Store certificate PDF
+    Cert->>DB: Save certificate metadata
+    Cert->>Email: Notify student
+    Email-->>Student: Your certificate is ready to download
+
+    Student->>WebApp: Download certificate
+    WebApp->>Cert: GET /api/certificates/download/{certId}
+    Cert->>S3: Retrieve PDF
+    S3-->>Cert: PDF file
+    Cert-->>Student: PDF streamed to browser
+```
+
+---
+
+### 9.3 Payment Status Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending : Student enrolls
+
+    Pending --> UnderReview : Student uploads proof of payment
+
+    UnderReview --> Confirmed : Admin confirms payment
+    UnderReview --> Rejected : Admin rejects payment
+
+    Rejected --> UnderReview : Student resubmits proof of payment
+
+    Confirmed --> EnrollmentActive : Enrollment automatically activated
+
+    EnrollmentActive --> CourseCompleted : Student attends all sessions
+
+    CourseCompleted --> CertificateIssued : Admin generates certificate
+
+    CertificateIssued --> [*]
+```
+
+---
+
+## 10. Technology Stack
 
 | Layer | Technology | Justification |
 |-------|------------|---------------|
@@ -386,23 +569,3 @@ Certificate Issued
 
 ---
 
-## 10. Database Schema Overview
-
-| Table | Description |
-|-------|-------------|
-| `users` | All platform users with role: student, trainer, admin |
-| `course_categories` | Lash, Brow, Nail, Makeup |
-| `courses` | Training courses with category, description, duration, and status |
-| `trainers` | Trainer profiles linked to user accounts |
-| `enrollments` | Student-to-course records; status: pending, active, completed |
-| `payments` | One payment record per enrollment: method (cash/eft), status, POP file path, confirming admin |
-| `sessions` | Scheduled training sessions with trainer, date, time, and venue |
-| `attendance` | Per-session attendance: present, absent, late |
-| `assessments` | Competency assessment results per student per course |
-| `certificates` | Issued certificates with student, course, issue date, and PDF path |
-| `course_materials` | Uploaded course documents linked to courses |
-| `notifications` | Log of all dispatched email notifications |
-
----
-
-*End of ARCHITECTURE.md*

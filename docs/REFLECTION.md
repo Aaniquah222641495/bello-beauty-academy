@@ -33,9 +33,5 @@ Jira is on the other end of the scale. It has burndown charts, velocity tracking
 
 GitHub Projects sits between the two. It is not as polished as Trello or as powerful as Jira but it has something neither of those has, which is direct integration with the repository. Issues, pull requests, and milestones are all connected. When a task references an issue number or a pull request is opened, the connection is automatic. For a project that already lives on GitHub, that integration is more valuable than any feature either of the other tools offers.
 
-### Lessons Learned
 
-The most important thing this assignment reinforced is that the right tool is the one the team will actually use consistently. A sophisticated board that nobody keeps updated is less useful than a simple one that reflects the real state of the work. Choosing the Kanban template over something more complex was the right call for where this project is right now.
-
----
 

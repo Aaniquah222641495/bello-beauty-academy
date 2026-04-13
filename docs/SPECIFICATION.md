@@ -1,13 +1,8 @@
-# Software Requirements Specification — Bello Beauty Academy Platform
+# Software Requirements Specification :Bello Beauty Academy Platform
 
 **Document Version:** 2.0
 **Date:** March 2026
 **Status:** Updated — Assignment 4 Revision
-
-> **Assignment 4 Update:** The following companion documents have been added to the repository as required:
-> - [STAKEHOLDER_ANALYSIS.md](./STAKEHOLDER_ANALYSIS.md) — Stakeholder analysis table with roles, concerns, pain points, and success metrics
-> - [SYSTEM_REQUIREMENTS.md](./SYSTEM_REQUIREMENTS.md) — Full System Requirements Document with acceptance criteria and categorised NFRs
-> - [REFLECTION.md](./REFLECTION.md) — Reflection on balancing stakeholder needs
 
 ---
 
@@ -18,10 +13,9 @@
 3. [Problem Statement](#3-problem-statement)
 4. [System Scope](#4-system-scope)
 5. [System Users and Actors](#5-system-users-and-actors)
-6. [Functional Requirements](#6-functional-requirements)
-7. [Non-Functional Requirements](#7-non-functional-requirements)
-8. [Training Courses Offered](#8-training-courses-offered)
-9. [Future Scope](#9-future-scope)
+6. [System Requirements](#6-system-requirements)
+7. [Training Courses Offered](#7-training-courses-offered)
+8. [Future Scope](#8-future-scope)
 
 ---
 
@@ -190,105 +184,13 @@ An **Administrator** is a member of academy staff responsible for the overall op
 
 ---
 
-## 6. Functional Requirements
+## 6. System Requirements
 
-The following functional requirements define the specific behaviours and capabilities the Bello Beauty Academy must support.
-
-### 6.1 Student Requirements
-
-| ID | Requirement |
-|----|-------------|
-| FR01 | The system shall allow prospective students to register for a personal account using their name, email address, and password. |
-| FR02 | The system shall allow registered students to log in to their personal dashboard using their email and password. |
-| FR03 | The system shall allow students to browse the full catalogue of available training courses, organised by category (Lash, Brow, Nail, Makeup). |
-| FR04 | The system shall display detailed course information including course name, description, duration, prerequisites, and cost. |
-| FR05 | The system shall allow students to submit an enrollment application for a selected course. |
-| FR06 | The system shall allow students to view their personalised class schedule, including session dates, times, and trainer names. |
-| FR07 | The system shall allow students to download or view uploaded course materials for courses in which they are enrolled. |
-| FR08 | The system shall allow students to view their training progress, including attendance records and assessment results. |
-| FR09 | The system shall allow students who have successfully completed a course to download their digital certificate in PDF format. |
-| FR10 | The system shall send automated email notifications to students confirming successful enrollment in a course. |
-| FR11 | The system shall allow students to view their current payment status for each enrolled course (Pending, Confirmed, Overdue). |
-| FR12 | The system shall allow students to upload a proof of payment document (e.g., bank slip or EFT screenshot) for manual payment verification. |
-
-### 6.2 Trainer Requirements
-
-| ID | Requirement |
-|----|-------------|
-| FR13 | The system shall allow trainers to log in to a trainer-specific portal using their credentials. |
-| FR14 | The system shall allow trainers to view their assigned courses and upcoming training sessions. |
-| FR15 | The system shall allow trainers to record student attendance for each training session. |
-| FR16 | The system shall allow trainers to submit student assessment and progress records for enrolled students. |
-| FR17 | The system shall allow trainers to upload course materials (documents, PDFs) to their assigned courses. |
-
-### 6.3 Administrator Requirements
-
-| ID | Requirement |
-|----|-------------|
-| FR18 | The system shall allow administrators to create, edit, and deactivate training courses, including assigning a course to a category. |
-| FR19 | The system shall allow administrators to create and manage trainer profiles, including assigning trainers to specific courses. |
-| FR20 | The system shall allow administrators to view, approve, or reject student enrollment applications. |
-| FR21 | The system shall allow administrators to create and manage class schedules, assigning dates, times, trainers, and venues to sessions. |
-| FR22 | The system shall allow administrators to generate digital certificates for students who have successfully completed a course. |
-| FR23 | The system shall allow administrators to generate reports on student enrollments, course completion rates, and trainer assignments. |
-| FR24 | The system shall allow administrators to view a payment dashboard showing all enrollments with their payment status (Pending, Confirmed, Overdue). |
-| FR25 | The system shall allow administrators to review uploaded proof of payment documents and manually confirm or reject a payment. |
-| FR26 | The system shall allow administrators to manually record a cash payment against a student enrollment, updating the payment status to Confirmed. |
-| FR27 | The system shall send an automated email notification to a student when their payment has been confirmed by the administrator. |
+The full functional and non-functional requirements for the Bello Beauty Academy Platform are documented in [SYSTEM_REQUIREMENTS.md](./SYSTEM_REQUIREMENTS.md). That document includes all 27 functional requirements with acceptance criteria, a full traceability matrix linking each requirement to its stakeholder, and non-functional requirements across six quality attribute categories: Usability, Deployability, Maintainability, Scalability, Security, and Performance.
 
 ---
 
-## 7. Non-Functional Requirements
-
-### 7.1 Security
-
-| ID | Requirement |
-|----|-------------|
-| NFR01 | All user passwords shall be stored using a cryptographic hashing algorithm (e.g., bcrypt) and shall never be stored in plain text. |
-| NFR02 | All communication between the client and server shall be encrypted using HTTPS/TLS. |
-| NFR03 | The system shall implement role-based access control (RBAC) to ensure that Students, Trainers, and Administrators can only access features and data appropriate to their role. |
-| NFR04 | Authentication tokens shall expire after a defined period of inactivity, requiring the user to re-authenticate. |
-
-### 7.2 Performance
-
-| ID | Requirement |
-|----|-------------|
-| NFR05 | The system shall load any page within 3 seconds under normal network conditions. |
-| NFR06 | The system shall support at least 100 concurrent users without significant degradation in response time. |
-| NFR07 | Database queries for common operations (e.g., course listing, enrollment lookup) shall return results within 500 milliseconds. |
-
-### 7.3 Availability
-
-| ID | Requirement |
-|----|-------------|
-| NFR08 | The system shall maintain an uptime of at least 99% during academy operating hours (Monday–Saturday, 07:00–20:00). |
-| NFR09 | The system shall implement regular automated database backups to prevent data loss. |
-
-### 7.4 Usability
-
-| ID | Requirement |
-|----|-------------|
-| NFR10 | The user interface shall be intuitive and navigable by a non-technical user without requiring any prior training. |
-| NFR11 | The system shall be fully responsive and accessible on desktop, tablet, and mobile web browsers. |
-| NFR12 | The system shall provide clear error messages that guide the user to correct invalid inputs. |
-
-### 7.5 Scalability
-
-| ID | Requirement |
-|----|-------------|
-| NFR13 | The system architecture shall be designed to support horizontal scaling as the number of students and courses grows. |
-| NFR14 | The database schema shall be designed to accommodate additional course categories and user types in the future without requiring a major redesign. |
-
-### 7.6 Data Integrity
-
-| ID | Requirement |
-|----|-------------|
-| NFR15 | The system shall enforce referential integrity constraints at the database level to prevent orphaned records. |
-| NFR16 | All student enrollment, progress, and certificate records shall be preserved and shall not be deletable by any user role below Administrator. |
-
----
-
-## 8. Training Courses Offered
+## 7. Training Courses Offered
 
 The academy offers certification courses across four professional categories.
 
@@ -332,7 +234,7 @@ The academy offers certification courses across four professional categories.
 
 ---
 
-## 9. Future Scope
+## 8. Future Scope
 
 The following features are out of scope for the current version of the system but have been identified and designed for future implementation.
 
