@@ -45,7 +45,10 @@ bello-beauty-academy/
     ├── TEST_AND_USE_CASE.md         ← Use case diagrams, specifications, and test cases
     ├── AGILE_PLANNING.md            ← Agile planning document with user stories, backlog, and sprint plan
     ├── TEMPLATE_ANALYSIS.md         ← GitHub project template comparison and justification
-    └── KANBAN_EXPLANATION.md        ← Kanban board definition and workflow explanation
+    ├── KANBAN_EXPLANATION.md        ← Kanban board definition and workflow explanation
+    ├── STATE_DIAGRAMS.md            ← Object state transition diagrams for 8 critical system objects
+    ├── ACTIVITY_DIAGRAMS.md         ← Activity workflow diagrams for 8 key system workflows
+    └── ASSIGNMENT8_REFLECTION.md    ← Reflection on object state and activity workflow modeling
 ```
 
 ---
@@ -63,6 +66,9 @@ bello-beauty-academy/
 | [AGILE_PLANNING.md](./docs/AGILE_PLANNING.md) | Agile planning document with user stories, prioritised product backlog, and sprint plan |
 | [TEMPLATE_ANALYSIS.md](./docs/TEMPLATE_ANALYSIS.md) | GitHub project template comparison and justification for the selected Kanban template |
 | [KANBAN_EXPLANATION.md](./docs/KANBAN_EXPLANATION.md) | Kanban board implementation including board structure, workflow visualisation, and WIP limits |
+| [STATE_DIAGRAMS.md](./docs/STATE_DIAGRAMS.md) | Object state transition diagrams for 8 critical system objects |
+| [ACTIVITY_DIAGRAMS.md](./docs/ACTIVITY_DIAGRAMS.md) | Activity workflow diagrams for 8 key system workflows |
+| [ASSIGNMENT8_REFLECTION.md](./docs/ASSIGNMENT8_REFLECTION.md) | Reflection on object state modeling and activity workflow modeling |
 
 ---
 
