@@ -34,18 +34,24 @@ Once fully developed, the Bello Beauty Academy Platform will provide a complete 
 ```
 bello-beauty-academy/
 │
-├── README.md                        ← You are here
+├── README.md                           ← You are here
 │
 └── docs/
-    ├── SPECIFICATION.md             ← Full system specification document
-    ├── ARCHITECTURE.md              ← System architecture and C4 diagrams
-    ├── STAKEHOLDER_ANALYSIS.md      ← Stakeholder analysis with roles, concerns, and success metrics
-    ├── SYSTEM_REQUIREMENTS.md       ← Full SRD with acceptance criteria and NFR categories
-    ├── REFLECTION.md                ← Reflection on Kanban board and template selection
-    ├── TEST_AND_USE_CASE.md         ← Use case diagrams, specifications, and test cases
-    ├── AGILE_PLANNING.md            ← Agile planning document with user stories, backlog, and sprint plan
-    ├── TEMPLATE_ANALYSIS.md         ← GitHub project template comparison and justification
-    └── KANBAN_EXPLANATION.md        ← Kanban board definition and workflow explanation
+    ├── SPECIFICATION.md                ← Full system specification document
+    ├── ARCHITECTURE.md                 ← System architecture and C4 diagrams
+    ├── STAKEHOLDER_ANALYSIS.md         ← Stakeholder analysis with roles, concerns, and success metrics
+    ├── SYSTEM_REQUIREMENTS.md          ← Full SRD with acceptance criteria and NFR categories
+    ├── REFLECTION.md                   ← Reflection on Kanban board and template selection
+    ├── TEST_AND_USE_CASE.md            ← Use case diagrams, specifications, and test cases
+    ├── AGILE_PLANNING.md               ← Agile planning document with user stories, backlog, and sprint plan
+    ├── TEMPLATE_ANALYSIS.md            ← GitHub project template comparison and justification
+    ├── KANBAN_EXPLANATION.md           ← Kanban board definition and workflow explanation
+    ├── STATE_DIAGRAMS.md               ← Object state transition diagrams for 8 critical system objects
+    ├── ACTIVITY_DIAGRAMS.md            ← Activity workflow diagrams for 8 key system workflows
+    ├── ASSIGNMENT8_REFLECTION.md       ← Reflection on object state and activity workflow modeling
+    ├── DOMAIN_MODEL.md                 ← Domain model with entities, attributes, methods, and business rules
+    ├── CLASS_DIAGRAM.md                ← Full Mermaid.js class diagram with design decisions
+    └── ASSIGNMENT9_REFLECTION.md       ← Reflection on domain modeling and class diagram development
 ```
 
 ---
@@ -63,6 +69,12 @@ bello-beauty-academy/
 | [AGILE_PLANNING.md](./docs/AGILE_PLANNING.md) | Agile planning document with user stories, prioritised product backlog, and sprint plan |
 | [TEMPLATE_ANALYSIS.md](./docs/TEMPLATE_ANALYSIS.md) | GitHub project template comparison and justification for the selected Kanban template |
 | [KANBAN_EXPLANATION.md](./docs/KANBAN_EXPLANATION.md) | Kanban board implementation including board structure, workflow visualisation, and WIP limits |
+| [STATE_DIAGRAMS.md](./docs/STATE_DIAGRAMS.md) | Object state transition diagrams for 8 critical system objects |
+| [ACTIVITY_DIAGRAMS.md](./docs/ACTIVITY_DIAGRAMS.md) | Activity workflow diagrams for 8 key system workflows |
+| [ASSIGNMENT8_REFLECTION.md](./docs/ASSIGNMENT8_REFLECTION.md) | Reflection on object state modeling and activity workflow modeling |
+| [DOMAIN_MODEL.md](./docs/DOMAIN_MODEL.md) | Domain model with core entities, attributes, methods, business rules, and relationships |
+| [CLASS_DIAGRAM.md](./docs/CLASS_DIAGRAM.md) | Full Mermaid.js class diagram with design decisions and multiplicity explanations |
+| [ASSIGNMENT9_REFLECTION.md](./docs/ASSIGNMENT9_REFLECTION.md) | Reflection on domain modeling and class diagram development |
 
 ---
 
@@ -86,19 +98,19 @@ The project uses a customised **Kanban** board on GitHub Projects to manage all 
 
 ### Customisation Choices
 
-**Testing column** — Added to create a clear separation between completing development and verifying it against the acceptance criteria defined in the user stories. Without this column, tasks move directly from In Progress to Done and the verification step gets skipped. This is particularly important for critical flows such as the payment confirmation process and certificate generation where correctness directly affects the student experience.
+**Testing column:** Added to create a clear separation between completing development and verifying it against the acceptance criteria defined in the user stories. Without this column, tasks move directly from In Progress to Done and the verification step gets skipped. This is particularly important for critical flows such as the payment confirmation process and certificate generation where correctness directly affects the student experience.
 
-**Blocked column** — Already included in the Kanban template by default. Retained and actively used to make obstacles immediately visible. A task that cannot progress should not remain in In Progress giving a false impression of activity.
+**Blocked column:** Already included in the Kanban template by default. Retained and actively used to make obstacles immediately visible. A task that cannot progress should not remain in In Progress giving a false impression of activity.
 
-**Task labels** — Each task issue carries multiple labels to categorise the type of work involved. All Sprint 1 tasks have the `Sprint 1` and `feature` labels. Tasks are additionally labelled as `backend` for API endpoint work, `frontend` for UI implementation, `notification` for email dispatch tasks, and `testing` for test-writing tasks. This makes it easy to filter the board by work type and understand the nature of each task at a glance.
+**Task labels:** Each task issue carries multiple labels to categorise the type of work involved. All Sprint 1 tasks have the `Sprint 1` and `feature` labels. Tasks are additionally labelled as `backend` for API endpoint work, `frontend` for UI implementation, `notification` for email dispatch tasks, and `testing` for test-writing tasks. This makes it easy to filter the board by work type and understand the nature of each task at a glance.
 
-**Parent user story references** — Each task issue includes a `Parent User Story: #number` reference in its description. GitHub automatically converts this into a clickable cross-reference, linking every task back to the user story it delivers. This ensures full traceability from sprint task through to the original user requirement.
+**Parent user story references:** Each task issue includes a `Parent User Story: #number` reference in its description. GitHub automatically converts this into a clickable cross-reference, linking every task back to the user story it delivers. This ensures full traceability from sprint task through to the original user requirement.
 
-**Future sprint tasks in Backlog** — Tasks T-019, T-020, and T-021 have been added to the Backlog column to represent work from Should-have and Could-have user stories that will be scheduled in future sprints. This ensures the Backlog column reflects a realistic project state with planned but not yet scheduled work.
+**Future sprint tasks in Backlog:** Tasks T-019, T-020, and T-021 have been added to the Backlog column to represent work from Should-have and Could-have user stories that will be scheduled in future sprints. This ensures the Backlog column reflects a realistic project state with planned but not yet scheduled work.
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 ### 🎓 Student Features
 - Browse and search all available certification courses
