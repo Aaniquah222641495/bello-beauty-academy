@@ -605,3 +605,4 @@ Rule configuration showing PR required, 1 approval required, and Build and Test 
 
 ---
 
+*End of ARCHITECTURE.md*

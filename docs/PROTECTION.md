@@ -164,3 +164,11 @@ Shows Require status checks to pass before merging enabled with the Build and Te
 The screenshot below shows the branch protection rule blocking a direct push to `main`. The error message confirms that changes must be made through a pull request and that the required status check must pass before merging.
 
 ![Branch Protection Blocked Direct Push](./screenshots/cicd/branch-protection-blocked.png)
+
+### PR Blocked by Failing Tests
+
+The screenshots below show a pull request being blocked because the CI pipeline failed. The Build and Test job is marked as Required and the merge button is disabled with the message "Merging is blocked due to failing merge requirements." This demonstrates that no broken code can reach `main` regardless of intent.
+
+![PR Blocked by Failing Tests 1](./screenshots/cicd/pr-blocked-failing-tests-1.png)
+
+![PR Blocked by Failing Tests 2](./screenshots/cicd/pr-blocked-failing-tests-2.png)

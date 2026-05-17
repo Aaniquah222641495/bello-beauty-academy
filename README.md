@@ -314,7 +314,18 @@ https://github.com/Aaniquah222641495/bello-beauty-academy/actions
 
 ### Branch Protection
 
-The `main` branch is protected. Direct pushes are blocked. All changes must go through a pull request that has been reviewed and has passed the CI pipeline. See [PROTECTION.md](./docs/PROTECTION.md) for full details.
+The `main` branch is protected by the following rules:
+- All changes must go through a pull request
+- At least 1 reviewer must approve the pull request
+- The CI pipeline must pass before merging
+- Direct pushes to main are blocked
+
+The screenshots below demonstrate the branch protection working:
+- A direct push to main is blocked with `GH006: Protected branch update failed`
+- A pull request with failing tests shows `Merging is blocked due to failing merge requirements`
+- The merge button is disabled until all checks pass and the PR is approved
+
+See [PROTECTION.md](./docs/PROTECTION.md) for a full explanation of each rule and all screenshots.
 
 ---
 
