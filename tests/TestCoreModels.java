@@ -53,9 +53,8 @@ class TestCoreModels {
 
     @Test
     void courseIsActiveByDefault() {
-        assertTrue(course.isActive());
+        assertFalse(course.isActive()); // temporarily broken for CI demo
     }
-
     @Test
     void courseAttributesAreSetCorrectly() {
         assertEquals("CRS-001", course.getCourseId());
