@@ -593,7 +593,15 @@ The CI/CD pipeline is defined in `.github/workflows/ci.yml` and runs automatical
 
 ### Branch Protection Rules
 
-![Branch Protection Rules](./screenshots/cicd/branch-protection-rules.png)
+Rule configuration showing PR required, 1 approval required, and Build and Test as required status check.
+
+![Branch Protection Rules Part 1](./screenshots/cicd/branch-protection-rules-1.png)
+
+![Branch Protection Rules Part 2](./screenshots/cicd/branch-protection-rules-2.png)
+
+### Branch Protection in Action — Direct Push Blocked
+
+![Branch Protection Blocked](./screenshots/cicd/branch-protection-blocked.png)
 
 ---
 

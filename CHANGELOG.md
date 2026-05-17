@@ -54,7 +54,9 @@ All issues are assigned, linked to the Assignment 13 milestone, and moved to Don
 
 **Documentation: `docs/`**
 - `PROTECTION.md`: explains all branch protection rules configured on main including PR reviews, status checks, and direct push blocking with real-world DevOps justification
-- `docs/screenshots/branch-protection-rules.png`: screenshot of branch protection settings
+- `docs/screenshots/cicd/branch-protection-rules-1.png`: screenshot of branch protection rule configuration part 1
+- `docs/screenshots/cicd/branch-protection-rules-2.png`: screenshot of branch protection rule configuration part 2
+- `docs/screenshots/cicd/branch-protection-blocked.png`: screenshot of direct push to main being blocked by branch protection
 - `docs/screenshots/ci-pipeline-success.png`: screenshot of successful CI pipeline run
 - `docs/screenshots/ci-artifact.png`: screenshot of generated JAR artifact
 

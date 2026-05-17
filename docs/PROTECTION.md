@@ -143,8 +143,24 @@ The following workflow applies to all contributors to the Bello Beauty Academy P
 
 ---
 
-## 6. Branch Protection Settings Screenshot
+## 6. Branch Protection Settings Screenshots
 
-The screenshot below shows the branch protection rules configured on the `main` branch of the Bello Beauty Academy Platform GitHub repository.
+The screenshots below show the branch protection rules configured on the `main` branch of the Bello Beauty Academy Platform GitHub repository.
 
-![Branch Protection Settings](./screenshots/cicd/branch-protection-rules.png)
+### Rule Configuration — Part 1
+
+Shows the branch name pattern set to `main`, Require a pull request before merging enabled, and Require approvals set to 1.
+
+![Branch Protection Rules Part 1](./screenshots/cicd/branch-protection-rules-1.png)
+
+### Rule Configuration — Part 2
+
+Shows Require status checks to pass before merging enabled with the Build and Test job selected as the required check, and Do not allow bypassing the above settings enabled.
+
+![Branch Protection Rules Part 2](./screenshots/cicd/branch-protection-rules-2.png)
+
+### Branch Protection in Action — Direct Push Blocked
+
+The screenshot below shows the branch protection rule blocking a direct push to `main`. The error message confirms that changes must be made through a pull request and that the required status check must pass before merging.
+
+![Branch Protection Blocked Direct Push](./screenshots/cicd/branch-protection-blocked.png)
