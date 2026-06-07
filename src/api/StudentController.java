@@ -27,6 +27,12 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
+    // GET /api/students/active — return only students with an active enrollment
+    @GetMapping("/active")
+    public ResponseEntity<List<Student>> getActiveStudents() {
+        return ResponseEntity.ok(studentService.getActiveStudents());
+    }
+
     // GET /api/students/{id} — return a student by ID
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable String id) {

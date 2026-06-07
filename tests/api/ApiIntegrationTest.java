@@ -121,6 +121,16 @@ public class ApiIntegrationTest {
                 .andExpect(status().isNotFound());
     }
 
+    // GET /api/students/active — should return 200 with students who have an active enrollment
+    @Test
+    @Order(23)
+    void testGetActiveStudents() throws Exception {
+        when(studentService.getActiveStudents()).thenReturn(List.of(student));
+        mockMvc.perform(get("/api/students/active"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].userId").value("S001"));
+    }
+
     // ─── Course endpoints ────────────────────────────────────────────────────
 
     // GET /api/courses — should return 200 with a list of courses
