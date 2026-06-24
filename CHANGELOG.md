@@ -145,8 +145,6 @@ All issues are assigned, linked to the Assignment 14 milestone, and moved to Don
 - `docs/screenshots/cicd/branch-protection-rules-1.png`: screenshot of branch protection rule configuration part 1
 - `docs/screenshots/cicd/branch-protection-rules-2.png`: screenshot of branch protection rule configuration part 2
 - `docs/screenshots/cicd/branch-protection-blocked.png`: screenshot of direct push to main being blocked by branch protection
-- `docs/screenshots/cicd/pr-blocked-failing-tests-1.png`: screenshot of PR blocked due to failing CI tests
-- `docs/screenshots/cicd/pr-blocked-failing-tests-2.png`: screenshot of merge blocked tooltip showing failing merge requirements
 - `docs/screenshots/ci-pipeline-success.png`: screenshot of successful CI pipeline run
 - `docs/screenshots/ci-artifact.png`: screenshot of generated JAR artifact
 
