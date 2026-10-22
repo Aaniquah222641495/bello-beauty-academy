@@ -603,12 +603,6 @@ Rule configuration showing PR required, 1 approval required, and Build and Test 
 
 ![Branch Protection Blocked](./screenshots/cicd/branch-protection-blocked.png)
 
-### PR Blocked by Failing Tests
-
-![PR Blocked Failing Tests 1](./screenshots/cicd/pr-blocked-failing-tests-1.png)
-
-![PR Blocked Failing Tests 2](./screenshots/cicd/pr-blocked-failing-tests-2.png)
-
 ---
 
 *End of ARCHITECTURE.md*
