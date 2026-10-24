@@ -40,6 +40,11 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    // return only students with at least one active enrollment
+    public List<Student> getActiveStudents() {
+        return studentRepository.findActiveStudents();
+    }
+
     // update an existing student — throws if not found
     public Student updateStudent(String studentId, Student updatedStudent) {
         if (updatedStudent == null) throw new IllegalArgumentException("Updated student must not be null.");
